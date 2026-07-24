@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://qro1nk7uq7r0"]
 
-[ext_resource type="Script" uid="uid://bxs5j04a6vphw" path="res://Scripts/Enemy/Follower.cs" id="1_opepj"]
+[ext_resource type="Script" uid="uid://bxs5j04a6vphw" path="res://Scripts/Enemies/Follower.cs" id="1_opepj"]
 [ext_resource type="Texture2D" uid="uid://b5ax66lgth63u" path="res://icon.svg" id="2_213ul"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ev4kj"]

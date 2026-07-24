@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c3wwhx22y8q7x"]
 
-[ext_resource type="Script" uid="uid://diswfobr6lfrn" path="res://Scripts/Enemy/Shooter.cs" id="1_gf2dn"]
+[ext_resource type="Script" uid="uid://diswfobr6lfrn" path="res://Scripts/Enemies/Shooter.cs" id="1_gf2dn"]
 [ext_resource type="Texture2D" uid="uid://b5ax66lgth63u" path="res://icon.svg" id="2_em7em"]
 [ext_resource type="PackedScene" uid="uid://dxvllpepltywm" path="res://Scenes/Enemies/Projectile.tscn" id="2_n5ife"]
 

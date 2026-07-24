@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dxvllpepltywm"]
 
-[ext_resource type="Script" uid="uid://dsbsn1chgfngn" path="res://Scripts/Enemy/Projectile.cs" id="1_xqss5"]
-[ext_resource type="Texture2D" uid="uid://d2ayv7d6b5oio" path="res://Assets/Sprites/Character/DetonatorTemp.png" id="2_ja771"]
+[ext_resource type="Script" uid="uid://dsbsn1chgfngn" path="res://Scripts/Enemies/Projectile.cs" id="1_xqss5"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Character/DetonatorTemp.png" id="2_ja771"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ev4kj"]
 radius = 9.0

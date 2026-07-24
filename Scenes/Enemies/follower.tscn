@@ -8,16 +8,19 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tl5bo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ev4kj"]
-radius = 234.67638
+radius = 122.0
 
-[node name="Follower" type="CharacterBody2D" unique_id=854438856]
+[node name="Follower" type="CharacterBody2D" unique_id=854438856 node_paths=PackedStringArray("followerArea", "followArea")]
 collision_layer = 4
 script = ExtResource("1_opepj")
+followerArea = NodePath("FollowerHitArea")
+followArea = NodePath("FollowArea")
 
 [node name="FollowerCollision" type="CollisionShape2D" parent="." unique_id=1172956759]
 shape = SubResource("RectangleShape2D_ev4kj")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1341364418]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_213ul")
 
 [node name="FollowerHitArea" type="Area2D" parent="." unique_id=848225175]

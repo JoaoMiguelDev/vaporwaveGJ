@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c78kchpbsthrp" path="res://Assets/Sprites/Tiles/TilesTemp.png" id="1_tlcug"]
 [ext_resource type="PackedScene" uid="uid://bwnils24oo8b" path="res://Scenes/Character/detonator.tscn" id="2_4dpyx"]
+[ext_resource type="PackedScene" uid="uid://qro1nk7uq7r0" path="res://Scenes/Enemies/follower.tscn" id="3_3mqfk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dpyx"]
 texture = ExtResource("1_tlcug")
@@ -25,3 +26,6 @@ tile_set = SubResource("TileSet_tlcug")
 
 [node name="Detonator" parent="." unique_id=1179604457 instance=ExtResource("2_4dpyx")]
 position = Vector2(192, 161)
+
+[node name="Follower" parent="." unique_id=854438856 instance=ExtResource("3_3mqfk")]
+position = Vector2(457, 119)

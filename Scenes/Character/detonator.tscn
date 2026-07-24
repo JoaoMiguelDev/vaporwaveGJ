@@ -1,16 +1,89 @@
 [gd_scene format=3 uid="uid://bwnils24oo8b"]
 
 [ext_resource type="Script" uid="uid://shf1mlxai567" path="res://Scripts/Character/Detonator.cs" id="1_ibn5x"]
-[ext_resource type="Texture2D" uid="uid://d2ayv7d6b5oio" path="res://Assets/Sprites/Character/DetonatorTemp.png" id="2_s33c5"]
+[ext_resource type="Texture2D" uid="uid://cfi6fpjhbjekj" path="res://Assets/Sprites/Character/detonator_idle-Sheet.png" id="2_ibn5x"]
 [ext_resource type="PackedScene" uid="uid://cjqjbw74oyuun" path="res://Scenes/Character/sword.tscn" id="3_iqn6a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibn5x"]
+atlas = ExtResource("2_ibn5x")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s33c5"]
+atlas = ExtResource("2_ibn5x")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqn6a"]
+atlas = ExtResource("2_ibn5x")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vj7hw"]
+atlas = ExtResource("2_ibn5x")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wiak4"]
+atlas = ExtResource("2_ibn5x")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ainrq"]
+atlas = ExtResource("2_ibn5x")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7cuy"]
+atlas = ExtResource("2_ibn5x")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1apd"]
+atlas = ExtResource("2_ibn5x")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kteo"]
+atlas = ExtResource("2_ibn5x")
+region = Rect2(384, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gvqo2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibn5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s33c5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqn6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vj7hw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wiak4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ainrq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7cuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1apd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8kteo")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svch3"]
 
 [node name="Detonator" type="CharacterBody2D" unique_id=1179604457]
+collision_layer = 2
 script = ExtResource("1_ibn5x")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1195857131]
-texture = ExtResource("2_s33c5")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1550908705]
+sprite_frames = SubResource("SpriteFrames_gvqo2")
+autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1683348575]
 shape = SubResource("RectangleShape2D_svch3")

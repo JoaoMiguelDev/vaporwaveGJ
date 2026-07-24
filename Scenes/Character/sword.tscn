@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cjqjbw74oyuun"]
 
-[ext_resource type="Texture2D" uid="uid://dj3mllhusllhi" path="res://Assets/Sprites/Character/DetonatorSwordTemp.png" id="1_h85xk"]
 [ext_resource type="Script" uid="uid://d4dct5vhkm0fq" path="res://Scripts/Character/Sword.cs" id="1_svch3"]
+[ext_resource type="Texture2D" uid="uid://nwd6sh1rfhd4" path="res://Assets/Sprites/Character/Katana.png" id="2_svch3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4u13r"]
-size = Vector2(25, 58)
+size = Vector2(38, 72)
 
 [sub_resource type="Animation" id="Animation_svch3"]
 length = 0.001
@@ -57,7 +57,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(0.5, 2),
 "update": 0,
-"values": [1.0471976, 0.0]
+"values": [2.0943952, 0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -69,7 +69,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(0.5, 2),
 "update": 0,
-"values": [Vector2(34, 23), Vector2(39, 0)]
+"values": [Vector2(19, 37), Vector2(39, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -93,10 +93,10 @@ tracks/0/path = NodePath("Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 2),
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(2, 0.5, 0.5),
 "update": 0,
-"values": [-1.0471976, 1.0471976]
+"values": [-2.0943952, 0.0, 2.0943952]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -105,10 +105,10 @@ tracks/1/path = NodePath("Sprite2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 2),
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(2, 0.5, 0.5),
 "update": 0,
-"values": [Vector2(34, -23), Vector2(34, 23)]
+"values": [Vector2(18.999996, -37), Vector2(40, 0), Vector2(19, 37)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -136,18 +136,18 @@ Animation = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1749543333]
 position = Vector2(39, 0)
-texture = ExtResource("1_h85xk")
+texture = ExtResource("2_svch3")
+flip_v = true
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=686867405]
 position = Vector2(45, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2142975702]
-position = Vector2(-6.5, 0)
 shape = SubResource("RectangleShape2D_4u13r")
 disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=108941212]
 libraries/ = SubResource("AnimationLibrary_47okd")
-speed_scale = 5.0
+speed_scale = 3.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

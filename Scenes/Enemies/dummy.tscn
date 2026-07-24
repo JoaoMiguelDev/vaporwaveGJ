@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://lgkgq65lcon0"]
+
+[ext_resource type="Texture2D" uid="uid://dmncvyk0kiy0j" path="res://Assets/Sprites/Enemies/DummyTemp.png" id="1_fotkt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ibn5x"]
+size = Vector2(20, 30)
+
+[node name="Dummy" type="CharacterBody2D" unique_id=1489809556]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=560089821]
+texture = ExtResource("1_fotkt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=409036167]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ibn5x")

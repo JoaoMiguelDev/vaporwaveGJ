@@ -1,3 +1,19 @@
 [gd_scene format=3 uid="uid://bwnils24oo8b"]
 
+[ext_resource type="Texture2D" uid="uid://b5ax66lgth63u" path="res://icon.svg" id="1_3hr15"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ev4kj"]
+size = Vector2(58, 59)
+
 [node name="Detonator" type="CharacterBody2D" unique_id=1179604457]
+collision_layer = 2
+collision_mask = 13
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1884439422]
+position = Vector2(-29.5, 29)
+scale = Vector2(0.5390625, 0.546875)
+texture = ExtResource("1_3hr15")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1362035523]
+position = Vector2(-33, 31.5)
+shape = SubResource("RectangleShape2D_ev4kj")

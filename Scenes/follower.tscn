@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://qro1nk7uq7r0"]
+
+[ext_resource type="Script" uid="uid://bxs5j04a6vphw" path="res://Scripts/Follower.cs" id="1_opepj"]
+[ext_resource type="Texture2D" uid="uid://b5ax66lgth63u" path="res://icon.svg" id="2_213ul"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ev4kj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tl5bo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ev4kj"]
+radius = 234.67638
+
+[node name="Follower" type="CharacterBody2D" unique_id=854438856]
+collision_layer = 4
+script = ExtResource("1_opepj")
+
+[node name="FollowerCollision" type="CollisionShape2D" parent="." unique_id=1172956759]
+shape = SubResource("RectangleShape2D_ev4kj")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1341364418]
+texture = ExtResource("2_213ul")
+
+[node name="FollowerHitArea" type="Area2D" parent="." unique_id=848225175]
+collision_layer = 4
+collision_mask = 18
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowerHitArea" unique_id=754824079]
+shape = SubResource("RectangleShape2D_tl5bo")
+
+[node name="FollowArea" type="Area2D" parent="." unique_id=1992272456]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowArea" unique_id=1224931399]
+shape = SubResource("CircleShape2D_ev4kj")

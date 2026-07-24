@@ -6,14 +6,20 @@ public partial class Detonator : CharacterBody2D
 	[Signal] public delegate void HealthChangedEventHandler(int current, int max);
 	[Signal] public delegate void DiedEventHandler();
 	[Export] private Timer CanTakeDamageTimer;
+	[Export] private AnimatedSprite2D sprite2D;
 	public const float Speed = 150.0f;
 	public const float DashSpeed = 400f;
-	public const float DashTime = 0.12f;
+	public const float DashTime = 0.2f;
 	private bool CanDash = true;
 	private float DashTimer = 0f;
 	private Vector2 DashDir = Vector2.Zero;
 	private const float DashReloadTime = 2f;
 	private float DashReloadTimer = 0; 
+
+	//Animation shenanigans
+	
+	private enum AnimationState { Idle, Walk, Dash }
+	private AnimationState CurrentAnimationState = AnimationState.Idle;
 
 	//Health variables
 	private const int MaxHealth = 3;
@@ -40,7 +46,7 @@ public partial class Detonator : CharacterBody2D
 	{
 		if(IsDead)
 			return;
-			
+
 	    var deltaF = (float)delta;
 	    Vector2 direction = Input.GetVector("left", "right", "up", "down");
 
@@ -48,6 +54,7 @@ public partial class Detonator : CharacterBody2D
 	    {
 	        DashTimer -= deltaF;
 	        Velocity = DashDir * DashSpeed;
+			PlayAnimation(AnimationState.Dash);
 	    }
 	    else
 	    {
@@ -68,16 +75,63 @@ public partial class Detonator : CharacterBody2D
 	            DashReloadTimer = DashReloadTime;
 	            DashDir = direction.Normalized();
 	            Velocity = DashDir * DashSpeed;
+				PlayAnimation(AnimationState.Dash);
 	        }
 	        else
 	        {
-	            Velocity = direction != Vector2.Zero
-	                ? direction.Normalized() * Speed
-	                : Vector2.Zero;
+				FlipSprite(direction);
+	            if (direction != Vector2.Zero)
+	            {
+	                Velocity = direction.Normalized() * Speed;
+	                PlayAnimation(AnimationState.Walk);
+	            }
+	            else
+	            {
+	                Velocity = Vector2.Zero;
+	                PlayAnimation(AnimationState.Idle);
+	            }
 	        }
 	    }
 
 	    MoveAndSlide();
+	}
+
+	private void PlayAnimation(AnimationState newState)
+	{
+				if (CurrentAnimationState == newState)
+			return;
+		
+		if (CurrentAnimationState == newState)
+			return;
+
+		CurrentAnimationState = newState;
+		
+		string animationName = newState switch
+		{
+			AnimationState.Idle => "idle",
+			AnimationState.Walk => "walk",
+			AnimationState.Dash => "dash",
+			_ => "idle"
+		};
+
+		sprite2D.Play(animationName);
+		
+	}
+
+	private void FlipSprite(Vector2 direction)
+	{
+		if (direction == Vector2.Zero)
+			return;
+
+		if (direction.X < 0)
+		{
+			sprite2D.FlipH = true;
+		}
+		else if (direction.X > 0)
+		{
+			sprite2D.FlipH = false;
+		}
+	
 	}
 
 	public void Die()
@@ -85,6 +139,8 @@ public partial class Detonator : CharacterBody2D
 		if (IsDead)
 			return;
 		IsDead = true;
+
+		// PlayAnimation(AnimationState.Die);
     }
 
 	public void TakeDamage(int amount)

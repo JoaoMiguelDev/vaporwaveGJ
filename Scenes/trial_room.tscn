@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dfnvrtovfonbb"]
+
+[ext_resource type="Script" uid="uid://b614uqh5l8qnu" path="res://Scripts/TrialRoom.cs" id="1_6y4ix"]
+
+[node name="TrialRoom" type="Area2D" unique_id=181175386]
+script = ExtResource("1_6y4ix")

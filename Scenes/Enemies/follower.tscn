@@ -4,8 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://b5ax66lgth63u" path="res://icon.svg" id="2_213ul"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ev4kj"]
+size = Vector2(136, 135)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tl5bo"]
+size = Vector2(115, 115)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ev4kj"]
 radius = 122.0
@@ -18,6 +20,7 @@ followerArea = NodePath("FollowerHitArea")
 followArea = NodePath("FollowArea")
 
 [node name="FollowerCollision" type="CollisionShape2D" parent="." unique_id=1172956759]
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_ev4kj")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1341364418]
@@ -29,6 +32,7 @@ collision_layer = 4
 collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FollowerHitArea" unique_id=754824079]
+position = Vector2(-1.5, 0.5)
 shape = SubResource("RectangleShape2D_tl5bo")
 
 [node name="FollowArea" type="Area2D" parent="." unique_id=1992272456]
@@ -36,4 +40,5 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FollowArea" unique_id=1224931399]
+visible = false
 shape = SubResource("CircleShape2D_ev4kj")

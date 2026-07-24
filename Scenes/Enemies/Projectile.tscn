@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dxvllpepltywm"]
+
+[ext_resource type="Script" uid="uid://dsbsn1chgfngn" path="res://Scripts/Enemies/Projectile.cs" id="1_xqss5"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Character/DetonatorTemp.png" id="2_ja771"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ev4kj"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tl5bo"]
+
+[node name="Projectile" type="CharacterBody2D" unique_id=1887555928]
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_xqss5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1526759965]
+shape = SubResource("CircleShape2D_ev4kj")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=840950587]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ja771")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1343034495 groups=["Enemys"]]
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1015464304]
+shape = SubResource("CircleShape2D_tl5bo")

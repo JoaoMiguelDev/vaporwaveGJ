@@ -82,7 +82,6 @@ public partial class Shooter : CharacterBody2D
 		
 		CanShoot = false;
 		ShootTimer.Start();
-		GD.Print("To atirando porra");
 		var projectile = ProjectileScene.Instantiate<Projectile>();
 		projectile.GlobalPosition = Position;
 		GetTree().CurrentScene.AddChild(projectile);

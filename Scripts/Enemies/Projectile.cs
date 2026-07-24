@@ -21,12 +21,12 @@ public partial class Projectile : CharacterBody2D
 		Vector2 velocity = Velocity;
 		
 		velocity = direction * Speed;
-		GD.Print(velocity);
 		Velocity = velocity;
 		MoveAndSlide();
 			
 	}
 	private void OnAreaEntered(Area2D area){
+			
 			QueueFree();
 			
 	}

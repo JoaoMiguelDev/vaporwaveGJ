@@ -139,7 +139,7 @@ position = Vector2(39, 0)
 texture = ExtResource("2_svch3")
 flip_v = true
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=686867405]
+[node name="Hitbox" type="Area2D" parent="." unique_id=686867405 groups=["Danos"]]
 position = Vector2(45, 0)
 collision_layer = 16
 collision_mask = 4

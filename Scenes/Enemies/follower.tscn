@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b5ax66lgth63u" path="res://icon.svg" id="2_213ul"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ev4kj"]
-size = Vector2(136, 135)
+size = Vector2(65, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tl5bo"]
 size = Vector2(115, 115)
@@ -20,14 +20,15 @@ followerArea = NodePath("FollowerHitArea")
 followArea = NodePath("FollowArea")
 
 [node name="FollowerCollision" type="CollisionShape2D" parent="." unique_id=1172956759]
-position = Vector2(0, 1.5)
+position = Vector2(-0.5, -1)
 shape = SubResource("RectangleShape2D_ev4kj")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1341364418]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_213ul")
 
-[node name="FollowerHitArea" type="Area2D" parent="." unique_id=848225175]
+[node name="FollowerHitArea" type="Area2D" parent="." unique_id=848225175 groups=["Enemies"]]
+visible = false
 collision_layer = 4
 collision_mask = 18
 
@@ -36,6 +37,7 @@ position = Vector2(-1.5, 0.5)
 shape = SubResource("RectangleShape2D_tl5bo")
 
 [node name="FollowArea" type="Area2D" parent="." unique_id=1992272456]
+visible = false
 collision_layer = 0
 collision_mask = 2
 

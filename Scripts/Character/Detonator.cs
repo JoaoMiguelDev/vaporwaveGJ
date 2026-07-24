@@ -3,7 +3,7 @@ using System;
 
 public partial class Detonator : CharacterBody2D
 {
-	public const float Speed = 100.0f;
+	public const float Speed = 150.0f;
 
 	public override void _PhysicsProcess(double delta)
 	{		

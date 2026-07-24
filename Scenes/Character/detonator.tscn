@@ -1,3 +1,18 @@
 [gd_scene format=3 uid="uid://bwnils24oo8b"]
 
+[ext_resource type="Script" uid="uid://shf1mlxai567" path="res://Scripts/Character/Detonator.cs" id="1_ibn5x"]
+[ext_resource type="Texture2D" uid="uid://d2ayv7d6b5oio" path="res://Assets/Sprites/Character/DetonatorTemp.png" id="2_s33c5"]
+[ext_resource type="PackedScene" uid="uid://cjqjbw74oyuun" path="res://Scenes/Character/sword.tscn" id="3_iqn6a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svch3"]
+
 [node name="Detonator" type="CharacterBody2D" unique_id=1179604457]
+script = ExtResource("1_ibn5x")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1195857131]
+texture = ExtResource("2_s33c5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1683348575]
+shape = SubResource("RectangleShape2D_svch3")
+
+[node name="Sword" parent="." unique_id=680981106 instance=ExtResource("3_iqn6a")]

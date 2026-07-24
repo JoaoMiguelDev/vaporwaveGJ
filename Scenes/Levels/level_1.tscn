@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ceysvptjslm07" path="res://Assets/Sprites/Tiles/tiles.png" id="2_cyadu"]
 [ext_resource type="PackedScene" uid="uid://qro1nk7uq7r0" path="res://Scenes/Enemies/follower.tscn" id="3_3mqfk"]
 [ext_resource type="PackedScene" uid="uid://i07ihx4fin88" path="res://Scenes/aim.tscn" id="4_iixi8"]
+[ext_resource type="PackedScene" uid="uid://c3wwhx22y8q7x" path="res://Scenes/Enemies/shooter.tscn" id="6_xgxfi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dpyx"]
 texture = ExtResource("1_tlcug")
@@ -110,3 +111,6 @@ position = Vector2(192, 161)
 position = Vector2(457, 119)
 
 [node name="Aim" parent="." unique_id=1578823410 instance=ExtResource("4_iixi8")]
+
+[node name="Shooter" parent="." unique_id=1349887448 instance=ExtResource("6_xgxfi")]
+position = Vector2(290, -548)

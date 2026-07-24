@@ -22,9 +22,7 @@ public partial class Shooter : CharacterBody2D
 		ShooterHit.AreaEntered += OnAreaEntered;
 		Player = GetParent().GetNode<CharacterBody2D>("Detonator");
 		ShooterArea.BodyEntered += OnBodyEntered;
-		ShooterArea.BodyExited += OnBodyExited;
-		
-		
+		ShooterArea.BodyExited += OnBodyExited;	
 	}
 
 
@@ -75,8 +73,7 @@ public partial class Shooter : CharacterBody2D
 	}
 	private void morrer(){
 		EmitSignal(SignalName.ShooterDeath);
-		QueueFree();
-		
+		QueueFree();	
 	}
 	
 	private void Shoot()

@@ -6,13 +6,14 @@ using System;
 
 public partial class Follower : CharacterBody2D
 {
-	public const float speed = 200.0f;
-	
+	public const float speed = 80.0f;
+	private int vida = 2;
 	private CharacterBody2D Player;
 	private bool Playerflag;
 	[Signal]
 	public delegate void FollowerHitEventHandler();
 	
+	[Signal] public delegate void FollowerDeathEventHandler();
 
 
 	public override void _Ready(){
@@ -43,8 +44,18 @@ public partial class Follower : CharacterBody2D
 		Velocity = velocity;
 		MoveAndSlide();
 	}
+	
+	
 	private void OnAreaEntered(Area2D area){
-		
+		if(area.IsInGroup("Danos")){
+			EmitSignal(SignalName.FollowerHit);
+			vida -= 1;
+			
+			if (vida == 0){
+				morrer();
+			}
+		}
+	
 	}
 	private void OnBodyEntered(Node2D body){
 		if(body.Name == "Detonator"){
@@ -59,5 +70,9 @@ public partial class Follower : CharacterBody2D
 		}
 	
 	}
-
+	private void morrer(){
+		EmitSignal(SignalName.FollowerDeath);
+		QueueFree();
+		
+	}
 }

@@ -159,6 +159,7 @@ public partial class Detonator : CharacterBody2D
 		CanTakeDamage = false;
 		animation.Play("hit");
 		EmmitHitParticles();
+		gameManager.ShakeCamera(0.5f, 0.2f);
 		CanTakeDamageTimer.Start();
 		Health -= amount;
 		

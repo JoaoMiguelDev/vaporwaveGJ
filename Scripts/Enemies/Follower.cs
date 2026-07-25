@@ -18,6 +18,7 @@ public partial class Follower : CharacterBody2D
 	private int vida = 2;
 
 	private CharacterBody2D player;
+	private GameManager gameManager;
 	private bool playerFlag;
 
 	public override void _Ready()
@@ -30,6 +31,7 @@ public partial class Follower : CharacterBody2D
 	    followArea.BodyExited += OnBodyExited;
 
 	    player = GetTree().CurrentScene?.FindChild("Detonator", true, false) as CharacterBody2D;
+		gameManager = GetTree().CurrentScene?.GetNodeOrNull<GameManager>("GameManager");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -37,9 +39,7 @@ public partial class Follower : CharacterBody2D
 		Vector2 velocity = Vector2.Zero;
 		if (playerFlag && player != null)
 		{
-			velocity = GlobalPosition.DirectionTo(player.GlobalPosition).Normalized() * Speed;
-		
-			
+			velocity = GlobalPosition.DirectionTo(player.GlobalPosition).Normalized() * Speed;	
 		}
 
 		Velocity = velocity;
@@ -51,6 +51,7 @@ public partial class Follower : CharacterBody2D
 		if (area.IsInGroup("Danos"))
 		{
 			EmitSignal(SignalName.FollowerHit);
+			gameManager.ShakeCamera(0.1f, 0.2f);
 			vida--;
 
 			if (vida <= 0)

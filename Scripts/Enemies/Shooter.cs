@@ -8,6 +8,7 @@ public partial class Shooter : CharacterBody2D
 	public const float speed = 50.0f;
 	private int vida = 1;
 	private CharacterBody2D Player;
+	private GameManager gameManager;
 	private bool Playerflag;
 	private bool CanShoot = true;
 	[Signal]
@@ -25,6 +26,7 @@ public partial class Shooter : CharacterBody2D
 	    ShooterArea.BodyExited += OnBodyExited;
 
 	    Player = GetTree().CurrentScene?.FindChild("Detonator", true, false) as CharacterBody2D;
+		gameManager = GetTree().CurrentScene?.GetNodeOrNull<GameManager>("GameManager");
 	}
 
 
@@ -52,6 +54,7 @@ public partial class Shooter : CharacterBody2D
 	private void OnAreaEntered(Area2D area){
 		if(area.IsInGroup("Danos")){
 			EmitSignal(SignalName.ShooterHit);
+			gameManager.ShakeCamera(0.1f, 0.2f);
 			vida -= 1;
 			
 			if (vida == 0){

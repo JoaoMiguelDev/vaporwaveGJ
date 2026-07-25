@@ -6,6 +6,7 @@ public partial class GameManager : Node
 	[Export] private Detonator detonator;
 	[Export] private Timer DeathTimer;
 	[Export] private Hud hud;
+	[Export] private ShakyCamera shakyCamera;
 	public override void _Ready()
 	{
 		detonator.HealthChanged += OnPlayerHealthChanged;
@@ -24,6 +25,11 @@ public partial class GameManager : Node
 	public void _on_death_timer_timeout()
 	{
 		GetTree().ReloadCurrentScene();
+	}
+
+	public void ShakeCamera(float intensity, float time)
+	{
+		shakyCamera.ScreenShake(intensity, time);
 	}	
 
 }

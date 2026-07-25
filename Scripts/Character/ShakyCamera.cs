@@ -13,33 +13,36 @@ public partial class ShakyCamera : Camera2D
     {
         float deltaFloat = (float)delta;
 
-        if (ActiveShakeTime > 0)
+        if (ActiveShakeTime > 0f)
         {
             ShakeTime += deltaFloat * ShakeTimeSpeed;
             ActiveShakeTime -= deltaFloat;
 
+            float noiseX = Noise.GetNoise2D(ShakeTime, 0f);
+            float noiseY = Noise.GetNoise2D(0f, ShakeTime);
+
             Offset = new Vector2(
-                Noise.GetNoise2D(ShakeTime, 0) * ShakeIntensity,
-                Noise.GetNoise2D(0, ShakeTime) * ShakeIntensity
+                noiseX * ShakeIntensity,
+                noiseY * ShakeIntensity
             );
 
-            ShakeIntensity = Mathf.Max(ShakeIntensity - ShakeDecay * deltaFloat, 0);
+            ShakeIntensity = Mathf.Max(ShakeIntensity - ShakeDecay * deltaFloat, 0f);
         }
         else
         {
-            Offset = Offset.Lerp(Vector2.Zero, 10.5f * deltaFloat);
+            Offset = Offset.Lerp(Vector2.Zero, 5f * deltaFloat);
         }
     }
 
     public void ScreenShake(float intensity, float time)
     {
-        GD.Randomize();
         Noise.Seed = (int)GD.Randi();
         Noise.Frequency = 2.0f;
+        Noise.NoiseType = FastNoiseLite.NoiseTypeEnum.Perlin;
 
-        ShakeIntensity = intensity;
-        ActiveShakeTime = time;
-        ShakeTime = 0.0f;
+        ShakeIntensity = Mathf.Max(intensity * 25f, 10f);
+        ActiveShakeTime = Mathf.Max(time, 0.2f);
+        ShakeTime = 0f;
     }
 }
 

@@ -215,7 +215,7 @@ DashParticlesScene = ExtResource("4_l7cuy")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1550908705]
 material = SubResource("ShaderMaterial_wiak4")
 sprite_frames = SubResource("SpriteFrames_gvqo2")
-animation = &"die"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1683348575]

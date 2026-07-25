@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://jcq141cffniq"]
+
+[ext_resource type="Script" uid="uid://cg5hsjeojtgp3" path="res://Scripts/Enemies/BossProjectile.cs" id="1_avkvb"]
+[ext_resource type="Texture2D" uid="uid://da7vpmg4av7wx" path="res://Assets/Sprites/Enemies/tiro.png" id="1_wmsug"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4u13r"]
+radius = 7.071068
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gvqo2"]
+radius = 15.033297
+
+[node name="BossProjectile" type="CharacterBody2D" unique_id=1039544456 groups=["Enemies"]]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_avkvb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1240385337]
+texture = ExtResource("1_wmsug")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=742880775]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_4u13r")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1689308368 groups=["Enemies"]]
+visible = false
+collision_layer = 4
+collision_mask = 19
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1244225826]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_gvqo2")
+debug_color = Color(0.957174, 1.4439225e-06, 0.53659636, 0.41960785)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=127631769]
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

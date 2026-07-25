@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dvx7t21ydt244"]
+
+[sub_resource type="Gradient" id="Gradient_mxuam"]
+offsets = PackedFloat32Array(0, 0.45)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lvi3r"]
+gradient = SubResource("Gradient_mxuam")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gjv8j"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 80.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 12.0
+color_ramp = SubResource("GradientTexture1D_lvi3r")
+
+[node name="BossHitParticles" type="GPUParticles2D" unique_id=426708031]
+emitting = false
+amount = 18
+one_shot = true
+explosiveness = 1.0
+randomness = 0.45
+process_material = SubResource("ParticleProcessMaterial_gjv8j")

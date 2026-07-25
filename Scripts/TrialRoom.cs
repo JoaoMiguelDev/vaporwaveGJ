@@ -9,6 +9,7 @@ public partial class TrialRoom : Area2D
 	[Export] private PackedScene FollowerScene;
 	[Export] private Node2D EnemiesNode;
 	private int EnemyQuantity;
+	private bool Completed = false;
 
     public override void _Ready()
     {
@@ -17,6 +18,9 @@ public partial class TrialRoom : Area2D
 
 	private void StartTrial()
 	{
+		if(Completed)
+			return;
+
 		foreach(Door door in Doors)
 		{
 			door.Close();
@@ -49,7 +53,8 @@ public partial class TrialRoom : Area2D
 		foreach(Door door in Doors)
 		{
 			door.Open();
-		}		
+		}
+		Completed = true;		
 	}
 
 	private void VerifyEnemiesQuantity()

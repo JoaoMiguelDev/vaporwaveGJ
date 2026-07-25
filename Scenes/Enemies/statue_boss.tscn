@@ -1,0 +1,325 @@
+[gd_scene format=3 uid="uid://dljyh6bi484kq"]
+
+[ext_resource type="Script" uid="uid://cljrkk6dmwk4i" path="res://Scripts/Enemies/StatueBoss.cs" id="1_lmknw"]
+[ext_resource type="Texture2D" uid="uid://rwdrycu6uyf7" path="res://Assets/Sprites/Boss/Boss-Sheet.png" id="2_l72s5"]
+[ext_resource type="PackedScene" uid="uid://dvx7t21ydt244" path="res://Scenes/Enemies/boss_hit_particles.tscn" id="2_wjlpm"]
+[ext_resource type="Shader" uid="uid://dqlat467spl85" path="res://Assets/Shaders/Hitflash.gdshader" id="2_y3kvw"]
+[ext_resource type="PackedScene" uid="uid://dmcomvlu0xbw8" path="res://Scenes/Enemies/boss_laser.tscn" id="3_l72s5"]
+[ext_resource type="PackedScene" uid="uid://jcq141cffniq" path="res://Scenes/Enemies/boss_projectile.tscn" id="3_qgc24"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4u13r"]
+size = Vector2(88, 128)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wjlpm"]
+shader = ExtResource("2_y3kvw")
+shader_parameter/HitFlashColor = Color(1, 1, 1, 1)
+shader_parameter/HitFlashOn = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3kvw"]
+atlas = ExtResource("2_l72s5")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjlpm"]
+atlas = ExtResource("2_l72s5")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgc24"]
+atlas = ExtResource("2_l72s5")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4u13r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3kvw")
+}],
+"loop": 1,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjlpm")
+}],
+"loop": 1,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgc24")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_q4fd0"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gvqo2"]
+gradient = SubResource("Gradient_q4fd0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4u13r"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+damping_min = 30.581001
+damping_max = 30.581001
+scale_min = 6.0
+scale_max = 6.0
+color = Color(0.9254902, 0.7764706, 0.33333334, 1)
+color_ramp = SubResource("GradientTexture1D_gvqo2")
+
+[sub_resource type="Gradient" id="Gradient_l72s5"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gjv8j"]
+gradient = SubResource("Gradient_l72s5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gvqo2"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+spread = 180.0
+orbit_velocity_min = 0.33300012
+orbit_velocity_max = 0.33300012
+gravity = Vector3(0, 0, 0)
+damping_min = 100.00001
+damping_max = 100.00001
+scale_min = 8.0
+scale_max = 10.0
+color_ramp = SubResource("GradientTexture1D_gjv8j")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4u13r"]
+radius = 64.0
+
+[sub_resource type="Animation" id="Animation_qgc24"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/HitFlashOn")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_q4fd0"]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/HitFlashOn")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1xdxb"]
+_data = {
+&"RESET": SubResource("Animation_qgc24"),
+&"hit": SubResource("Animation_q4fd0")
+}
+
+[node name="StatueBoss" type="CharacterBody2D" unique_id=1629522420 node_paths=PackedStringArray("ProjectileSpawnPoints", "Lasers", "LaserStartParticles", "OmnishootStartParticles", "LaserNode", "animation", "sprite2D", "IdleTimer", "StartupLaserSpinTimer", "LaserSpinTimer", "ShootIntervalTimer", "StartupOmniShootTimer", "OmnishootTimer")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_lmknw")
+ProjectileSpawnPoints = [NodePath("Projectiles/NorthSpawn"), NodePath("Projectiles/NortheastSpawn"), NodePath("Projectiles/EastSpawn"), NodePath("Projectiles/SoutheastSpawn"), NodePath("Projectiles/SouthSpawn"), NodePath("Projectiles/SouthwestSpawn"), NodePath("Projectiles/WestSpawn"), NodePath("Projectiles/NorthwestSpawn")]
+Lasers = [NodePath("Lasers/Marker2D/BossLaser"), NodePath("Lasers/Marker2D2/BossLaser"), NodePath("Lasers/Marker2D3/BossLaser"), NodePath("Lasers/Marker2D4/BossLaser")]
+LaserStartParticles = [NodePath("Lasers/Marker2D/GPUParticles2D"), NodePath("Lasers/Marker2D2/GPUParticles2D"), NodePath("Lasers/Marker2D3/GPUParticles2D"), NodePath("Lasers/Marker2D4/GPUParticles2D")]
+OmnishootStartParticles = [NodePath("Projectiles/NorthSpawn/GPUParticles2D"), NodePath("Projectiles/NortheastSpawn/GPUParticles2D"), NodePath("Projectiles/EastSpawn/GPUParticles2D"), NodePath("Projectiles/SoutheastSpawn/GPUParticles2D"), NodePath("Projectiles/SouthSpawn/GPUParticles2D"), NodePath("Projectiles/SouthwestSpawn/GPUParticles2D"), NodePath("Projectiles/WestSpawn/GPUParticles2D"), NodePath("Projectiles/NorthwestSpawn/GPUParticles2D")]
+LaserNode = NodePath("Lasers")
+animation = NodePath("AnimationPlayer")
+sprite2D = NodePath("AnimatedSprite2D")
+HitParticlesScene = ExtResource("2_wjlpm")
+BossProjectileScene = ExtResource("3_qgc24")
+IdleTimer = NodePath("IdleTimer")
+StartupLaserSpinTimer = NodePath("StartUpLaserSpinTimer")
+LaserSpinTimer = NodePath("LaserSpinTimer")
+ShootIntervalTimer = NodePath("ShootIntervalTimer")
+StartupOmniShootTimer = NodePath("StartUpOmniShootTimer")
+OmnishootTimer = NodePath("OmnishootTimer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=379648468]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_4u13r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1911676949]
+material = SubResource("ShaderMaterial_wjlpm")
+sprite_frames = SubResource("SpriteFrames_4u13r")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Projectiles" type="Node2D" parent="." unique_id=1884815158]
+
+[node name="NorthSpawn" type="Marker2D" parent="Projectiles" unique_id=263626341]
+position = Vector2(0, -64)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Projectiles/NorthSpawn" unique_id=465033036]
+emitting = false
+amount = 16
+randomness = 0.56
+process_material = SubResource("ParticleProcessMaterial_4u13r")
+
+[node name="NortheastSpawn" type="Marker2D" parent="Projectiles" unique_id=1342889297]
+position = Vector2(48, -48)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Projectiles/NortheastSpawn" unique_id=835435199]
+emitting = false
+amount = 16
+randomness = 0.56
+process_material = SubResource("ParticleProcessMaterial_4u13r")
+
+[node name="EastSpawn" type="Marker2D" parent="Projectiles" unique_id=920580284]
+position = Vector2(64, 0)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Projectiles/EastSpawn" unique_id=59744872]
+emitting = false
+amount = 16
+randomness = 0.56
+process_material = SubResource("ParticleProcessMaterial_4u13r")
+
+[node name="SoutheastSpawn" type="Marker2D" parent="Projectiles" unique_id=1585640067]
+position = Vector2(48, 48)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Projectiles/SoutheastSpawn" unique_id=1574751920]
+emitting = false
+amount = 16
+randomness = 0.56
+process_material = SubResource("ParticleProcessMaterial_4u13r")
+
+[node name="SouthSpawn" type="Marker2D" parent="Projectiles" unique_id=665330648]
+position = Vector2(0, 64)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Projectiles/SouthSpawn" unique_id=121691106]
+emitting = false
+amount = 16
+randomness = 0.56
+process_material = SubResource("ParticleProcessMaterial_4u13r")
+
+[node name="SouthwestSpawn" type="Marker2D" parent="Projectiles" unique_id=2053087439]
+position = Vector2(-48, 48)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Projectiles/SouthwestSpawn" unique_id=1729592532]
+emitting = false
+amount = 16
+randomness = 0.56
+process_material = SubResource("ParticleProcessMaterial_4u13r")
+
+[node name="WestSpawn" type="Marker2D" parent="Projectiles" unique_id=105043232]
+position = Vector2(-64, 0)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Projectiles/WestSpawn" unique_id=880821035]
+emitting = false
+amount = 16
+randomness = 0.56
+process_material = SubResource("ParticleProcessMaterial_4u13r")
+
+[node name="NorthwestSpawn" type="Marker2D" parent="Projectiles" unique_id=1752343299]
+position = Vector2(-48, -56)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Projectiles/NorthwestSpawn" unique_id=1074059228]
+emitting = false
+amount = 16
+randomness = 0.56
+process_material = SubResource("ParticleProcessMaterial_4u13r")
+
+[node name="Lasers" type="Node2D" parent="." unique_id=135742019]
+
+[node name="Marker2D" type="Marker2D" parent="Lasers" unique_id=1054779010]
+position = Vector2(72, 0)
+
+[node name="BossLaser" parent="Lasers/Marker2D" unique_id=1267685010 instance=ExtResource("3_l72s5")]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Lasers/Marker2D" unique_id=2028967702]
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_gvqo2")
+
+[node name="Marker2D2" type="Marker2D" parent="Lasers" unique_id=432842886]
+position = Vector2(0, 72)
+
+[node name="BossLaser" parent="Lasers/Marker2D2" unique_id=261910108 instance=ExtResource("3_l72s5")]
+rotation = 1.5707964
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Lasers/Marker2D2" unique_id=2063503015]
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_gvqo2")
+
+[node name="Marker2D3" type="Marker2D" parent="Lasers" unique_id=672792415]
+position = Vector2(-72, 0)
+
+[node name="BossLaser" parent="Lasers/Marker2D3" unique_id=187014165 instance=ExtResource("3_l72s5")]
+rotation = 3.1415927
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Lasers/Marker2D3" unique_id=547595847]
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_gvqo2")
+
+[node name="Marker2D4" type="Marker2D" parent="Lasers" unique_id=1928373715]
+position = Vector2(0, -72)
+
+[node name="BossLaser" parent="Lasers/Marker2D4" unique_id=358768637 instance=ExtResource("3_l72s5")]
+rotation = 4.712389
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Lasers/Marker2D4" unique_id=1233112447]
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_gvqo2")
+
+[node name="BossHitbox" type="Area2D" parent="." unique_id=1057031278]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossHitbox" unique_id=1196404849]
+shape = SubResource("CircleShape2D_4u13r")
+debug_color = Color(0.9593316, 0, 0.52489454, 0.41960785)
+
+[node name="IdleTimer" type="Timer" parent="." unique_id=1560753487]
+wait_time = 3.0
+one_shot = true
+
+[node name="StartUpLaserSpinTimer" type="Timer" parent="." unique_id=1487884733]
+wait_time = 1.5
+one_shot = true
+
+[node name="LaserSpinTimer" type="Timer" parent="." unique_id=1771430479]
+wait_time = 4.0
+one_shot = true
+
+[node name="ShootIntervalTimer" type="Timer" parent="." unique_id=510600250]
+wait_time = 0.5
+one_shot = true
+
+[node name="OmnishootTimer" type="Timer" parent="." unique_id=347519674]
+wait_time = 3.0
+one_shot = true
+
+[node name="StartUpOmniShootTimer" type="Timer" parent="." unique_id=1406900919]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1871450067]
+libraries/ = SubResource("AnimationLibrary_1xdxb")
+
+[connection signal="area_entered" from="BossHitbox" to="." method="_on_boss_hitbox_area_entered"]
+[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="StartUpLaserSpinTimer" to="." method="_on_start_up_laser_spin_timer_timeout"]
+[connection signal="timeout" from="LaserSpinTimer" to="." method="_on_laser_spin_timer_timeout"]
+[connection signal="timeout" from="ShootIntervalTimer" to="." method="_on_shoot_interval_timer_timeout"]
+[connection signal="timeout" from="OmnishootTimer" to="." method="_on_omnishoot_timer_timeout"]
+[connection signal="timeout" from="StartUpOmniShootTimer" to="." method="_on_start_up_omni_shoot_timer_timeout"]

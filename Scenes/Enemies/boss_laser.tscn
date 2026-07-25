@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dmcomvlu0xbw8"]
+
+[ext_resource type="Script" uid="uid://db3uysj4f1kt5" path="res://Scripts/Enemies/BossLaser.cs" id="1_0xyc1"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4u13r"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+
+[node name="BossLaser" type="RayCast2D" unique_id=1267685010 node_paths=PackedStringArray("_line2D", "CollisionParticles")]
+target_position = Vector2(2000, 0)
+collision_mask = 3
+script = ExtResource("1_0xyc1")
+StartDistance = 0.0
+_line2D = NodePath("Line2D")
+CollisionParticles = NodePath("CollisionParticles")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=579130165]
+points = PackedVector2Array(0, 0, 2000, 0)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="CollisionParticles" type="GPUParticles2D" parent="." unique_id=372984718]
+emitting = false
+amount = 26
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_4u13r")

@@ -19,12 +19,10 @@ followerArea = NodePath("FollowerHitArea")
 followArea = NodePath("FollowArea")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1341364418]
-position = Vector2(-2.0000005, -1)
 scale = Vector2(0.21875, 0.21875001)
 texture = ExtResource("2_213ul")
 
 [node name="FollowerCollision" type="CollisionShape2D" parent="." unique_id=1172956759]
-position = Vector2(-1.25, -1)
 shape = SubResource("RectangleShape2D_ev4kj")
 
 [node name="FollowerHitArea" type="Area2D" parent="." unique_id=848225175 groups=["Enemies"]]
@@ -32,14 +30,11 @@ collision_layer = 4
 collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FollowerHitArea" unique_id=754824079]
-position = Vector2(-1.5, 0)
 shape = SubResource("RectangleShape2D_tl5bo")
 
 [node name="FollowArea" type="Area2D" parent="." unique_id=1992272456]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FollowArea" unique_id=1224931399]
-visible = false
 shape = SubResource("CircleShape2D_ev4kj")

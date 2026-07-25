@@ -16,13 +16,15 @@ public partial class Shooter : CharacterBody2D
 	[Signal] public delegate void ShooterDeathEventHandler();
 
 
-	public override void _Ready(){
-		Area2D ShooterHit = GetNode<Area2D>("ShooterHitArea");
-		Area2D ShooterArea = GetNode<Area2D>("ShooterRunArea");
-		ShooterHit.AreaEntered += OnAreaEntered;
-		Player = GetParent().GetNode<CharacterBody2D>("Detonator");
-		ShooterArea.BodyEntered += OnBodyEntered;
-		ShooterArea.BodyExited += OnBodyExited;	
+	public override void _Ready()
+	{
+	    Area2D ShooterHit = GetNode<Area2D>("ShooterHitArea");
+	    Area2D ShooterArea = GetNode<Area2D>("ShooterRunArea");
+	    ShooterHit.AreaEntered += OnAreaEntered;
+	    ShooterArea.BodyEntered += OnBodyEntered;
+	    ShooterArea.BodyExited += OnBodyExited;
+
+	    Player = GetTree().CurrentScene?.FindChild("Detonator", true, false) as CharacterBody2D;
 	}
 
 
@@ -33,7 +35,7 @@ public partial class Shooter : CharacterBody2D
 	   
 	   
 		if (Playerflag && Player != null){
-			velocity = -Position.DirectionTo(Player.Position) * speed;
+			velocity = -GlobalPosition.DirectionTo(Player.GlobalPosition) * speed;
 			
 		}
 		else{
@@ -83,7 +85,7 @@ public partial class Shooter : CharacterBody2D
 		CanShoot = false;
 		ShootTimer.Start();
 		var projectile = ProjectileScene.Instantiate<Projectile>();
-		projectile.GlobalPosition = Position;
+		projectile.GlobalPosition = GlobalPosition;
 		GetTree().CurrentScene.AddChild(projectile);
 		
 	}

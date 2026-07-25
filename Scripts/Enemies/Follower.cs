@@ -22,14 +22,14 @@ public partial class Follower : CharacterBody2D
 
 	public override void _Ready()
 	{
-		followerArea = GetNode<Area2D>("FollowerHitArea");
-		followArea = GetNode<Area2D>("FollowArea");
+	    followerArea = GetNode<Area2D>("FollowerHitArea");
+	    followArea = GetNode<Area2D>("FollowArea");
 
-		followerArea.AreaEntered += OnAreaEntered;
-		followArea.BodyEntered += OnBodyEntered;
-		followArea.BodyExited += OnBodyExited;
+	    followerArea.AreaEntered += OnAreaEntered;
+	    followArea.BodyEntered += OnBodyEntered;
+	    followArea.BodyExited += OnBodyExited;
 
-		player = GetParent().GetNode<CharacterBody2D>("Detonator");
+	    player = GetTree().CurrentScene?.FindChild("Detonator", true, false) as CharacterBody2D;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -37,7 +37,7 @@ public partial class Follower : CharacterBody2D
 		Vector2 velocity = Vector2.Zero;
 		if (playerFlag && player != null)
 		{
-			velocity = Position.DirectionTo(player.Position).Normalized() * Speed;
+			velocity = GlobalPosition.DirectionTo(player.GlobalPosition).Normalized() * Speed;
 		
 			
 		}

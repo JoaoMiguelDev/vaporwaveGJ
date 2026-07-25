@@ -1,19 +1,24 @@
 [gd_scene format=3 uid="uid://dtwa6n5ufr40f"]
 
 [ext_resource type="Script" uid="uid://7pvfegyjmb8y" path="res://Scripts/Door.cs" id="1_p0e35"]
-[ext_resource type="Texture2D" uid="uid://b5ax66lgth63u" path="res://icon.svg" id="1_w6aom"]
+[ext_resource type="Texture2D" uid="uid://da37yyfu4dpqr" path="res://Assets/Sprites/Tiles/tile2.png" id="2_p0e35"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4u13r"]
 size = Vector2(64, 32)
 
-[node name="Door" type="StaticBody2D" unique_id=165729116]
+[node name="Door" type="StaticBody2D" unique_id=165729116 node_paths=PackedStringArray("collision", "sprite")]
 collision_mask = 0
 script = ExtResource("1_p0e35")
+collision = NodePath("CollisionShape2D")
+sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=526483637]
+visible = false
 position = Vector2(9.536743e-07, -4.7683716e-07)
-scale = Vector2(0.5, 0.25)
-texture = ExtResource("1_w6aom")
+texture = ExtResource("2_p0e35")
+region_enabled = true
+region_rect = Rect2(90, 247, 78, 41)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=631754962]
 shape = SubResource("RectangleShape2D_4u13r")
+disabled = true

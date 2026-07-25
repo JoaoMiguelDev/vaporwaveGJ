@@ -5,10 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://dxvllpepltywm" path="res://Scenes/Enemies/Projectile.tscn" id="2_n5ife"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svch3"]
-size = Vector2(127, 109)
+size = Vector2(36, 36)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mfti5"]
-size = Vector2(144, 132)
+size = Vector2(36, 36)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kqaj2"]
 radius = 115.313705
@@ -20,10 +20,10 @@ ProjectileScene = ExtResource("2_n5ife")
 ShootTimer = NodePath("ShootTimer")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1775573967]
+scale = Vector2(0.2734375, 0.2734375)
 texture = ExtResource("2_em7em")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=244519256]
-position = Vector2(0.5, 2.5)
 shape = SubResource("RectangleShape2D_svch3")
 
 [node name="ShooterHitArea" type="Area2D" parent="." unique_id=15373606 groups=["Enemies"]]
@@ -31,7 +31,6 @@ collision_layer = 4
 collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShooterHitArea" unique_id=643377025]
-position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_mfti5")
 
 [node name="ShooterRunArea" type="Area2D" parent="." unique_id=1773813336]
@@ -39,7 +38,6 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShooterRunArea" unique_id=1359703687]
-position = Vector2(-4, 0.5)
 shape = SubResource("CircleShape2D_kqaj2")
 
 [node name="ShootTimer" type="Timer" parent="." unique_id=604293116]

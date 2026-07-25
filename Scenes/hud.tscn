@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://4srkymi7bi44"]
+
+[ext_resource type="Script" uid="uid://bgrwo7xk2ort4" path="res://Scripts/Hud.cs" id="1_bjfho"]
+[ext_resource type="Texture2D" uid="uid://hwjsxfunrvnr" path="res://Assets/Sprites/Ui/hud-Sheet.png" id="1_e0onf"]
+[ext_resource type="PackedScene" uid="uid://cbg8i68cpurbc" path="res://Scenes/battery_hud.tscn" id="3_6fbih"]
+
+[node name="Hud" type="Control" unique_id=1250065759 node_paths=PackedStringArray("Batteries", "IconSprite")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bjfho")
+Batteries = [NodePath("MarginContainer2/HBoxContainer/Control/BatteryHud"), NodePath("MarginContainer2/HBoxContainer/Control2/BatteryHud2"), NodePath("MarginContainer2/HBoxContainer/Control3/BatteryHud3")]
+IconSprite = NodePath("MarginContainer/Control/IconSprite")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=373957767]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 70
+
+[node name="Control" type="Control" parent="MarginContainer" unique_id=203262456]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="IconSprite" type="Sprite2D" parent="MarginContainer/Control" unique_id=1539083483]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_e0onf")
+hframes = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=76946148]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 77
+theme_override_constants/margin_top = 110
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2" unique_id=1739223760]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Control" type="Control" parent="MarginContainer2/HBoxContainer" unique_id=1599992694]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="BatteryHud" parent="MarginContainer2/HBoxContainer/Control" unique_id=1249518491 instance=ExtResource("3_6fbih")]
+
+[node name="Control2" type="Control" parent="MarginContainer2/HBoxContainer" unique_id=1092377775]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="BatteryHud2" parent="MarginContainer2/HBoxContainer/Control2" unique_id=488784581 instance=ExtResource("3_6fbih")]
+position = Vector2(-13, 0)
+
+[node name="Control3" type="Control" parent="MarginContainer2/HBoxContainer" unique_id=2046611299]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="BatteryHud3" parent="MarginContainer2/HBoxContainer/Control3" unique_id=1365448483 instance=ExtResource("3_6fbih")]
+position = Vector2(-26, 0)

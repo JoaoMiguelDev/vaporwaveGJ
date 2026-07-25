@@ -5,7 +5,12 @@ public partial class Door : StaticBody2D
 {
 	[Export] private CollisionShape2D collision;
 	[Export] private Sprite2D sprite;
-	private bool opened = false;
+	private bool opened = true;
+
+    public override void _Ready()
+    {
+			
+    }
 
 	public void Open()
 	{

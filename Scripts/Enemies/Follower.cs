@@ -14,7 +14,7 @@ public partial class Follower : CharacterBody2D
 	[Export]
 	private Area2D followArea;
 
-	public const float Speed = 80.0f;
+	public const float Speed = 75.0f;
 	private int vida = 2;
 
 	private CharacterBody2D player;
@@ -35,10 +35,11 @@ public partial class Follower : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Vector2.Zero;
-
 		if (playerFlag && player != null)
 		{
-			velocity = Position.DirectionTo(player.Position) * Speed;
+			velocity = Position.DirectionTo(player.Position).Normalized() * Speed;
+		
+			
 		}
 
 		Velocity = velocity;

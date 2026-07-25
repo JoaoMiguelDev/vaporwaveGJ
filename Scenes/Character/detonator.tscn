@@ -138,6 +138,8 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svch3"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ev4kj"]
+
 [node name="Detonator" type="CharacterBody2D" unique_id=1179604457 node_paths=PackedStringArray("CanTakeDamageTimer", "sprite2D")]
 collision_layer = 2
 collision_mask = 5
@@ -152,6 +154,7 @@ autoplay = "idle"
 frame_progress = 0.91060853
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1683348575]
+visible = false
 shape = SubResource("RectangleShape2D_svch3")
 
 [node name="Sword" parent="." unique_id=680981106 instance=ExtResource("3_iqn6a")]
@@ -159,4 +162,12 @@ shape = SubResource("RectangleShape2D_svch3")
 [node name="CanTakeDamageTimer" type="Timer" parent="." unique_id=1191956350]
 one_shot = true
 
+[node name="DetonatorHitBox" type="Area2D" parent="." unique_id=714123309]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetonatorHitBox" unique_id=1552171539]
+shape = SubResource("RectangleShape2D_ev4kj")
+
 [connection signal="timeout" from="CanTakeDamageTimer" to="." method="_on_can_take_damage_timer_timeout"]
+[connection signal="area_entered" from="DetonatorHitBox" to="." method="OnHitBoxEntered"]

@@ -26,17 +26,17 @@ public partial class Detonator : CharacterBody2D
 	private int _health = 3;
 	public int Health
 	{
-    	get => _health;
-    	private set
-    	{
-        	_health = Mathf.Clamp(value, 0, MaxHealth);
-        	EmitSignal(SignalName.HealthChanged, _health, MaxHealth);
-        	if (_health == 0)
+		get => _health;
+		private set
+		{
+			_health = Mathf.Clamp(value, 0, MaxHealth);
+			EmitSignal(SignalName.HealthChanged, _health, MaxHealth);
+			if (_health == 0)
 			{
 				EmitSignal(SignalName.Died);
 				Die();
 			} 
-    	}
+		}
 	}
 
 	private bool IsDead = false;
@@ -44,56 +44,55 @@ public partial class Detonator : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if(IsDead)
-			return;
+		
 
-	    var deltaF = (float)delta;
-	    Vector2 direction = Input.GetVector("left", "right", "up", "down");
+		var deltaF = (float)delta;
+		Vector2 direction = Input.GetVector("left", "right", "up", "down");
 
-	    if (DashTimer > 0f)
-	    {
-	        DashTimer -= deltaF;
-	        Velocity = DashDir * DashSpeed;
+		if (DashTimer > 0f)
+		{
+			DashTimer -= deltaF;
+			Velocity = DashDir * DashSpeed;
 			PlayAnimation(AnimationState.Dash);
-	    }
-	    else
-	    {
-	        if (!CanDash)
-	        {
-	            DashReloadTimer -= deltaF;
-	            if (DashReloadTimer <= 0f)
-	            {
-	                CanDash = true;
-	            }
-	        }
+		}
+		else
+		{
+			if (!CanDash)
+			{
+				DashReloadTimer -= deltaF;
+				if (DashReloadTimer <= 0f)
+				{
+					CanDash = true;
+				}
+			}
 
-	        if (CanDash && Input.IsActionJustPressed("dash") && direction != Vector2.Zero)
-	        {
+			if (CanDash && Input.IsActionJustPressed("dash") && direction != Vector2.Zero)
+			{
 				GD.Print("Tô dando dash");
-	            CanDash = false;
-	            DashTimer = DashTime;
-	            DashReloadTimer = DashReloadTime;
-	            DashDir = direction.Normalized();
-	            Velocity = DashDir * DashSpeed;
+				CanDash = false;
+				DashTimer = DashTime;
+				DashReloadTimer = DashReloadTime;
+				DashDir = direction.Normalized();
+				Velocity = DashDir * DashSpeed;
 				PlayAnimation(AnimationState.Dash);
-	        }
-	        else
-	        {
+			}
+			else
+			{
 				FlipSprite(direction);
-	            if (direction != Vector2.Zero)
-	            {
-	                Velocity = direction.Normalized() * Speed;
-	                PlayAnimation(AnimationState.Walk);
-	            }
-	            else
-	            {
-	                Velocity = Vector2.Zero;
-	                PlayAnimation(AnimationState.Idle);
-	            }
-	        }
-	    }
+				if (direction != Vector2.Zero)
+				{
+					Velocity = direction.Normalized() * Speed;
+					PlayAnimation(AnimationState.Walk);
+				}
+				else
+				{
+					Velocity = Vector2.Zero;
+					PlayAnimation(AnimationState.Idle);
+				}
+			}
+		}
 
-	    MoveAndSlide();
+		MoveAndSlide();
 	}
 
 	private void PlayAnimation(AnimationState newState)
@@ -135,13 +134,17 @@ public partial class Detonator : CharacterBody2D
 	}
 
 	public void Die()
-    {
+	{
 		if (IsDead)
 			return;
+		Hide();
+		SetPhysicsProcess(false);
+		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+		GetNode<Node2D>("Sword").QueueFree();
 		IsDead = true;
 
 		// PlayAnimation(AnimationState.Die);
-    }
+	}
 
 	public void TakeDamage(int amount)
 	{
@@ -152,11 +155,18 @@ public partial class Detonator : CharacterBody2D
 
 		CanTakeDamage = false;
 		CanTakeDamageTimer.Start();
-        Health -= amount;
+		Health -= amount;
+		
 	}
 
 	public void _on_can_take_damage_timer_timeout()
 	{
 		CanTakeDamage = true;
+	}
+	private void OnHitBoxEntered(Area2D area){
+		if(area.IsInGroup("Enemies")){
+			TakeDamage(1);
+		}
+		
 	}
 }

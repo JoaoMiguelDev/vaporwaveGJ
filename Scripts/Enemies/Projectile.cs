@@ -26,7 +26,6 @@ public partial class Projectile : CharacterBody2D
 			
 	}
 	private void OnAreaEntered(Area2D area){
-			
 			QueueFree();
 			
 	}

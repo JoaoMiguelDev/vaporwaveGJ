@@ -3,6 +3,15 @@
 [ext_resource type="Script" uid="uid://diswfobr6lfrn" path="res://Scripts/Enemies/Shooter.cs" id="1_gf2dn"]
 [ext_resource type="Texture2D" uid="uid://b5ax66lgth63u" path="res://icon.svg" id="2_em7em"]
 [ext_resource type="PackedScene" uid="uid://dxvllpepltywm" path="res://Scenes/Enemies/Projectile.tscn" id="2_n5ife"]
+[ext_resource type="PackedScene" uid="uid://5djxu5h6flfl" path="res://Scenes/Character/take_damage_particles.tscn" id="3_flciy"]
+[ext_resource type="PackedScene" uid="uid://cqu1s4jkh6qqe" path="res://Scenes/Character/die_paticles.tscn" id="4_tmvw0"]
+[ext_resource type="Shader" uid="uid://dqlat467spl85" path="res://Assets/Shaders/Hitflash.gdshader" id="5_tmvw0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1svgy"]
+resource_local_to_scene = true
+shader = ExtResource("5_tmvw0")
+shader_parameter/HitFlashColor = Color(1, 1, 1, 1)
+shader_parameter/HitFlashOn = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svch3"]
 size = Vector2(36, 36)
@@ -13,13 +22,54 @@ size = Vector2(36, 36)
 [sub_resource type="CircleShape2D" id="CircleShape2D_kqaj2"]
 radius = 115.313705
 
-[node name="Shooter" type="CharacterBody2D" unique_id=1349887448 node_paths=PackedStringArray("ShootTimer")]
+[sub_resource type="Animation" id="Animation_k1do7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/HitFlashOn")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_s3dpm"]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/HitFlashOn")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lp70y"]
+_data = {
+&"RESET": SubResource("Animation_k1do7"),
+&"hit": SubResource("Animation_s3dpm")
+}
+
+[node name="Shooter" type="CharacterBody2D" unique_id=1349887448 node_paths=PackedStringArray("ShootTimer", "animation")]
 collision_layer = 4
 script = ExtResource("1_gf2dn")
 ProjectileScene = ExtResource("2_n5ife")
 ShootTimer = NodePath("ShootTimer")
+HitParticlesScene = ExtResource("3_flciy")
+DieParticlesScene = ExtResource("4_tmvw0")
+animation = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1775573967]
+material = SubResource("ShaderMaterial_1svgy")
 scale = Vector2(0.2734375, 0.2734375)
 texture = ExtResource("2_em7em")
 
@@ -41,5 +91,8 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_kqaj2")
 
 [node name="ShootTimer" type="Timer" parent="." unique_id=604293116]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1623372138]
+libraries/ = SubResource("AnimationLibrary_lp70y")
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

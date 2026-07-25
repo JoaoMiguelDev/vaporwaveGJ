@@ -5,6 +5,9 @@ public partial class Shooter : CharacterBody2D
 {
 	[Export] private PackedScene ProjectileScene;
 	[Export] private Timer ShootTimer;
+	[Export] private PackedScene HitParticlesScene;
+	[Export] private PackedScene DieParticlesScene;
+	[Export] private AnimationPlayer animation;
 	public const float speed = 50.0f;
 	private int vida = 1;
 	private CharacterBody2D Player;
@@ -55,6 +58,8 @@ public partial class Shooter : CharacterBody2D
 		if(area.IsInGroup("Danos")){
 			EmitSignal(SignalName.ShooterHit);
 			gameManager.ShakeCamera(0.1f, 0.2f);
+			EmmitHitParticles();
+			animation.Play("hit");
 			vida -= 1;
 			
 			if (vida == 0){
@@ -78,6 +83,7 @@ public partial class Shooter : CharacterBody2D
 	}
 	private void morrer(){
 		EmitSignal(SignalName.ShooterDeath);
+		EmmitDieParticles();
 		QueueFree();	
 	}
 	
@@ -95,5 +101,25 @@ public partial class Shooter : CharacterBody2D
 	
 	public void _on_shoot_timer_timeout(){
 		CanShoot = true;
+	}
+
+	private void EmmitHitParticles()
+	{
+		var hitParticles = HitParticlesScene.Instantiate<GpuParticles2D>();
+	    GetParent().AddChild(hitParticles);
+	    hitParticles.GlobalPosition = GlobalPosition;
+	    hitParticles.Emitting = true;
+	   
+	    hitParticles.Finished += hitParticles.QueueFree;  
+	}
+
+	private void EmmitDieParticles()
+	{
+		var dieParticles = DieParticlesScene.Instantiate<GpuParticles2D>();
+	    GetParent().AddChild(dieParticles);
+	    dieParticles.GlobalPosition = GlobalPosition;
+	    dieParticles.Emitting = true;
+	   
+	    dieParticles.Finished += dieParticles.QueueFree;  
 	}
 }

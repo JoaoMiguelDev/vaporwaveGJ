@@ -14,6 +14,10 @@ public partial class Follower : CharacterBody2D
 	[Export]
 	private Area2D followArea;
 
+	[Export] private PackedScene HitParticlesScene;
+	[Export] private PackedScene DieParticlesScene;
+	[Export] private AnimationPlayer animation;
+
 	public const float Speed = 75.0f;
 	private int vida = 2;
 
@@ -52,6 +56,8 @@ public partial class Follower : CharacterBody2D
 		{
 			EmitSignal(SignalName.FollowerHit);
 			gameManager.ShakeCamera(0.1f, 0.2f);
+			EmmitHitParticles();
+			animation.Play("hit");
 			vida--;
 
 			if (vida <= 0)
@@ -80,6 +86,27 @@ public partial class Follower : CharacterBody2D
 	private void Morre()
 	{
 		EmitSignal(SignalName.FollowerDeath);
+		EmmitDieParticles();
 		QueueFree();
+	}
+
+	private void EmmitHitParticles()
+	{
+		var hitParticles = HitParticlesScene.Instantiate<GpuParticles2D>();
+	    GetParent().AddChild(hitParticles);
+	    hitParticles.GlobalPosition = GlobalPosition;
+	    hitParticles.Emitting = true;
+	   
+	    hitParticles.Finished += hitParticles.QueueFree;  
+	}
+
+	private void EmmitDieParticles()
+	{
+		var dieParticles = DieParticlesScene.Instantiate<GpuParticles2D>();
+	    GetParent().AddChild(dieParticles);
+	    dieParticles.GlobalPosition = GlobalPosition;
+	    dieParticles.Emitting = true;
+	   
+	    dieParticles.Finished += dieParticles.QueueFree;  
 	}
 }

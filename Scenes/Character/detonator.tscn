@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bkw03cewvbhs" path="res://Assets/Sprites/Character/detonator_dead.png" id="7_a1apd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wiak4"]
+resource_local_to_scene = true
 shader = ExtResource("2_vj7hw")
 shader_parameter/HitFlashColor = Color(1, 1, 1, 1)
 shader_parameter/HitFlashOn = false

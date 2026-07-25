@@ -2,6 +2,15 @@
 
 [ext_resource type="Script" uid="uid://bxs5j04a6vphw" path="res://Scripts/Enemies/Follower.cs" id="1_opepj"]
 [ext_resource type="Texture2D" uid="uid://b5ax66lgth63u" path="res://icon.svg" id="2_213ul"]
+[ext_resource type="PackedScene" uid="uid://5djxu5h6flfl" path="res://Scenes/Character/take_damage_particles.tscn" id="2_hqbn2"]
+[ext_resource type="PackedScene" uid="uid://cqu1s4jkh6qqe" path="res://Scenes/Character/die_paticles.tscn" id="3_m8lta"]
+[ext_resource type="Shader" uid="uid://dqlat467spl85" path="res://Assets/Shaders/Hitflash.gdshader" id="4_m8lta"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_53h23"]
+resource_local_to_scene = true
+shader = ExtResource("4_m8lta")
+shader_parameter/HitFlashColor = Color(1, 1, 1, 1)
+shader_parameter/HitFlashOn = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ev4kj"]
 size = Vector2(27.5, 28)
@@ -12,13 +21,54 @@ size = Vector2(27, 28)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ev4kj"]
 radius = 150.0
 
-[node name="Follower" type="CharacterBody2D" unique_id=854438856 node_paths=PackedStringArray("followerArea", "followArea")]
+[sub_resource type="Animation" id="Animation_6c2lc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/HitFlashOn")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_khuya"]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/HitFlashOn")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mglek"]
+_data = {
+&"RESET": SubResource("Animation_6c2lc"),
+&"hit": SubResource("Animation_khuya")
+}
+
+[node name="Follower" type="CharacterBody2D" unique_id=854438856 node_paths=PackedStringArray("followerArea", "followArea", "animation")]
 collision_layer = 4
 script = ExtResource("1_opepj")
 followerArea = NodePath("FollowerHitArea")
 followArea = NodePath("FollowArea")
+HitParticlesScene = ExtResource("2_hqbn2")
+DieParticlesScene = ExtResource("3_m8lta")
+animation = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1341364418]
+material = SubResource("ShaderMaterial_53h23")
 scale = Vector2(0.21875, 0.21875001)
 texture = ExtResource("2_213ul")
 
@@ -38,3 +88,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FollowArea" unique_id=1224931399]
 shape = SubResource("CircleShape2D_ev4kj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1819001004]
+libraries/ = SubResource("AnimationLibrary_mglek")

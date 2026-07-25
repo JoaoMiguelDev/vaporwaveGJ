@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d4dct5vhkm0fq" path="res://Scripts/Character/Sword.cs" id="1_svch3"]
 [ext_resource type="Texture2D" uid="uid://nwd6sh1rfhd4" path="res://Assets/Sprites/Character/Katana.png" id="2_svch3"]
+[ext_resource type="Texture2D" uid="uid://bwyrael1gt2tg" path="res://Assets/Sprites/Character/slash-Sheet.png" id="3_mfti5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4u13r"]
 size = Vector2(38, 72)
@@ -43,6 +44,42 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SlashSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SlashSprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SlashSprite:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_47okd"]
@@ -122,6 +159,42 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SlashSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SlashSprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.23333335, 0.5, 0.73333335, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SlashSprite:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.90000004, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_47okd"]
 _data = {
@@ -138,6 +211,14 @@ Animation = NodePath("AnimationPlayer")
 position = Vector2(39, 0)
 texture = ExtResource("2_svch3")
 flip_v = true
+
+[node name="SlashSprite" type="Sprite2D" parent="." unique_id=876718]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+position = Vector2(67, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("3_mfti5")
+hframes = 5
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=686867405 groups=["Danos"]]
 position = Vector2(45, 0)

@@ -7,6 +7,11 @@ public partial class Detonator : CharacterBody2D
 	[Signal] public delegate void DiedEventHandler();
 	[Export] private Timer CanTakeDamageTimer;
 	[Export] private AnimatedSprite2D sprite2D;
+	[Export] private GameManager gameManager;
+	[Export] private AnimationPlayer animation;
+	[Export] private PackedScene HitParticlesScene;
+	[Export] private PackedScene DieParticlesScene;
+	[Export] private PackedScene DashParticlesScene;
 	public const float Speed = 150.0f;
 	public const float DashSpeed = 400f;
 	public const float DashTime = 0.2f;
@@ -18,7 +23,7 @@ public partial class Detonator : CharacterBody2D
 
 	//Animation shenanigans
 	
-	private enum AnimationState { Idle, Walk, Dash }
+	private enum AnimationState { Idle, Walk, Dash, Die }
 	private AnimationState CurrentAnimationState = AnimationState.Idle;
 
 	//Health variables
@@ -44,7 +49,8 @@ public partial class Detonator : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		
+		if(IsDead)
+			return;
 
 		var deltaF = (float)delta;
 		Vector2 direction = Input.GetVector("left", "right", "up", "down");
@@ -69,6 +75,7 @@ public partial class Detonator : CharacterBody2D
 			if (CanDash && Input.IsActionJustPressed("dash") && direction != Vector2.Zero)
 			{
 				GD.Print("Tô dando dash");
+				EmmitDashParticles();
 				CanDash = false;
 				DashTimer = DashTime;
 				DashReloadTimer = DashReloadTime;
@@ -96,10 +103,7 @@ public partial class Detonator : CharacterBody2D
 	}
 
 	private void PlayAnimation(AnimationState newState)
-	{
-				if (CurrentAnimationState == newState)
-			return;
-		
+	{	
 		if (CurrentAnimationState == newState)
 			return;
 
@@ -107,10 +111,11 @@ public partial class Detonator : CharacterBody2D
 		
 		string animationName = newState switch
 		{
-			AnimationState.Idle => "idle",
-			AnimationState.Walk => "walk",
-			AnimationState.Dash => "dash",
-			_ => "idle"
+		    AnimationState.Idle => "idle",
+		    AnimationState.Walk => "walk",
+		    AnimationState.Dash => "dash",
+		    AnimationState.Die => "die",
+		    _ => "idle"
 		};
 
 		sprite2D.Play(animationName);
@@ -137,13 +142,11 @@ public partial class Detonator : CharacterBody2D
 	{
 		if (IsDead)
 			return;
-		Hide();
-		SetPhysicsProcess(false);
+		IsDead = true;
+		EmmitDieParticles();
+		PlayAnimation(AnimationState.Die);
 		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 		GetNode<Node2D>("Sword").QueueFree();
-		IsDead = true;
-
-		// PlayAnimation(AnimationState.Die);
 	}
 
 	public void TakeDamage(int amount)
@@ -154,6 +157,8 @@ public partial class Detonator : CharacterBody2D
 			return;
 
 		CanTakeDamage = false;
+		animation.Play("hit");
+		EmmitHitParticles();
 		CanTakeDamageTimer.Start();
 		Health -= amount;
 		
@@ -163,10 +168,41 @@ public partial class Detonator : CharacterBody2D
 	{
 		CanTakeDamage = true;
 	}
-	private void OnHitBoxEntered(Area2D area){
-		if(area.IsInGroup("Enemies")){
+	private void OnHitBoxEntered(Area2D area)
+	{
+		if(area.IsInGroup("Enemies"))
+		{
 			TakeDamage(1);
-		}
-		
+		}	
+	}
+
+	private void EmmitHitParticles()
+	{
+		var hitParticles = HitParticlesScene.Instantiate<GpuParticles2D>();
+	    GetParent().AddChild(hitParticles);
+	    hitParticles.GlobalPosition = GlobalPosition;
+	    hitParticles.Emitting = true;
+	   
+	    hitParticles.Finished += hitParticles.QueueFree;  
+	}
+
+	private void EmmitDieParticles()
+	{
+		var dieParticles = DieParticlesScene.Instantiate<GpuParticles2D>();
+	    GetParent().AddChild(dieParticles);
+	    dieParticles.GlobalPosition = GlobalPosition;
+	    dieParticles.Emitting = true;
+	   
+	    dieParticles.Finished += dieParticles.QueueFree;  
+	}
+
+	private void EmmitDashParticles()
+	{
+		var dashParticles = DashParticlesScene.Instantiate<GpuParticles2D>();
+	    GetParent().AddChild(dashParticles);
+	    dashParticles.GlobalPosition = GlobalPosition;
+	    dashParticles.Emitting = true;
+	   
+	    dashParticles.Finished += dashParticles.QueueFree;  
 	}
 }

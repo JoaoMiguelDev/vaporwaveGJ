@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cqu1s4jkh6qqe"]
+
+[sub_resource type="Gradient" id="Gradient_vj7hw"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ainrq"]
+gradient = SubResource("Gradient_vj7hw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wiak4"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 40.0
+initial_velocity_max = 60.0
+gravity = Vector3(0, 0, 0)
+damping_min = 28.000002
+damping_max = 30.000002
+scale_min = 8.0
+scale_max = 10.0
+color_ramp = SubResource("GradientTexture1D_ainrq")
+
+[node name="DiePaticles" type="GPUParticles2D" unique_id=1454275675]
+emitting = false
+amount = 12
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_wiak4")

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://5djxu5h6flfl"]
+
+[sub_resource type="Gradient" id="Gradient_iqn6a"]
+offsets = PackedFloat32Array(0, 0.5)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vj7hw"]
+gradient = SubResource("Gradient_iqn6a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iqn6a"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 60.0
+initial_velocity_max = 60.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 4.0
+color_ramp = SubResource("GradientTexture1D_vj7hw")
+
+[node name="TakeDamageParticles" type="GPUParticles2D" unique_id=19019165]
+emitting = false
+amount = 10
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_iqn6a")

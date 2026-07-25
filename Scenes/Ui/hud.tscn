@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://4srkymi7bi44"]
 
-[ext_resource type="Script" uid="uid://bgrwo7xk2ort4" path="res://Scripts/Hud.cs" id="1_bjfho"]
+[ext_resource type="Script" uid="uid://bgrwo7xk2ort4" path="res://Scripts/Ui/Hud.cs" id="1_bjfho"]
 [ext_resource type="Texture2D" uid="uid://hwjsxfunrvnr" path="res://Assets/Sprites/Ui/hud-Sheet.png" id="1_e0onf"]
-[ext_resource type="PackedScene" uid="uid://cbg8i68cpurbc" path="res://Scenes/battery_hud.tscn" id="3_6fbih"]
+[ext_resource type="PackedScene" uid="uid://cbg8i68cpurbc" path="res://Scenes/Ui/battery_hud.tscn" id="3_6fbih"]
 
 [node name="Hud" type="Control" unique_id=1250065759 node_paths=PackedStringArray("Batteries", "IconSprite")]
 layout_mode = 3

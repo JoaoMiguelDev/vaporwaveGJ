@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cbg8i68cpurbc"]
 
 [ext_resource type="Texture2D" uid="uid://bxx27u0bkcipu" path="res://Assets/Sprites/Ui/Vida.png" id="1_fv0cq"]
-[ext_resource type="Script" uid="uid://cyrtomoowpyvm" path="res://Scripts/BatteryHud.cs" id="2_81lo3"]
+[ext_resource type="Script" uid="uid://cyrtomoowpyvm" path="res://Scripts/Ui/BatteryHud.cs" id="2_81lo3"]
 
 [node name="BatteryHud" type="Sprite2D" unique_id=1249518491]
 texture = ExtResource("1_fv0cq")

@@ -7,9 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://ceysvptjslm07" path="res://Assets/Sprites/Tiles/tiles.png" id="2_cyadu"]
 [ext_resource type="Texture2D" uid="uid://da37yyfu4dpqr" path="res://Assets/Sprites/Tiles/tile2.png" id="3_5f3p6"]
 [ext_resource type="PackedScene" uid="uid://dtwa6n5ufr40f" path="res://Scenes/door.tscn" id="3_jv26f"]
-[ext_resource type="PackedScene" uid="uid://i07ihx4fin88" path="res://Scenes/aim.tscn" id="4_iixi8"]
+[ext_resource type="PackedScene" uid="uid://i07ihx4fin88" path="res://Scenes/Ui/aim.tscn" id="4_iixi8"]
 [ext_resource type="PackedScene" uid="uid://dfnvrtovfonbb" path="res://Scenes/trial_room.tscn" id="8_rb0md"]
-[ext_resource type="PackedScene" uid="uid://4srkymi7bi44" path="res://Scenes/hud.tscn" id="10_hwvp3"]
+[ext_resource type="PackedScene" uid="uid://4srkymi7bi44" path="res://Scenes/Ui/hud.tscn" id="10_hwvp3"]
+[ext_resource type="PackedScene" uid="uid://vxpwkjo58a0i" path="res://Scenes/Ui/crt.tscn" id="11_hwvp3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dpyx"]
 texture = ExtResource("1_tlcug")
@@ -363,6 +364,7 @@ position = Vector2(192, 161)
 [node name="Camera2D" type="Camera2D" parent="Detonator" unique_id=68254337]
 
 [node name="Aim" parent="." unique_id=1578823410 instance=ExtResource("4_iixi8")]
+z_index = 999
 
 [node name="TrialRoom" parent="." unique_id=181175386 node_paths=PackedStringArray("Doors", "SpawnPoints") instance=ExtResource("8_rb0md")]
 position = Vector2(312, -488)
@@ -397,3 +399,8 @@ position = Vector2(-233, -15)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=606075031]
 
 [node name="Hud" parent="CanvasLayer" unique_id=1250065759 instance=ExtResource("10_hwvp3")]
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=2124021320]
+layer = 999
+
+[node name="Crt" parent="CanvasLayer2" unique_id=766459670 instance=ExtResource("11_hwvp3")]

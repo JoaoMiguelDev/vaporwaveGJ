@@ -141,6 +141,7 @@ animations = [{
 [node name="Detonator" type="CharacterBody2D" unique_id=1179604457 node_paths=PackedStringArray("CanTakeDamageTimer", "sprite2D")]
 collision_layer = 2
 collision_mask = 5
+motion_mode = 1
 script = ExtResource("1_ibn5x")
 CanTakeDamageTimer = NodePath("CanTakeDamageTimer")
 sprite2D = NodePath("AnimatedSprite2D")
@@ -157,6 +158,15 @@ shape = SubResource("RectangleShape2D_svch3")
 [node name="Sword" parent="." unique_id=680981106 instance=ExtResource("3_iqn6a")]
 
 [node name="CanTakeDamageTimer" type="Timer" parent="." unique_id=1191956350]
+<<<<<<< Updated upstream
+=======
+wait_time = 1.1
+>>>>>>> Stashed changes
 one_shot = true
 
 [connection signal="timeout" from="CanTakeDamageTimer" to="." method="_on_can_take_damage_timer_timeout"]
+<<<<<<< Updated upstream
+=======
+[connection signal="area_entered" from="DetonatorHitBox" to="." method="OnHitBoxEntered"]
+[connection signal="area_exited" from="DetonatorHitBox" to="." method="OnHitBoxExited"]
+>>>>>>> Stashed changes

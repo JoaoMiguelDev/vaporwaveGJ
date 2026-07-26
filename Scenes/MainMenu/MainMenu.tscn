@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cf7wlxhy0hvp6" path="res://Scenes/MainMenu/MainMenu.cs" id="1_c7oo3"]
 [ext_resource type="Texture2D" uid="uid://dlwash5c5n258" path="res://Assets/Sprites/Ui/tela_inicio-Sheet.png" id="2_c7oo3"]
+[ext_resource type="AudioStream" uid="uid://bcuxm3844hcdc" path="res://Assets/Soundtracks/A - menu.ogg" id="3_sg7ab"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c7oo3"]
 atlas = ExtResource("2_c7oo3")
@@ -36,7 +37,7 @@ font_names = PackedStringArray("Pixeled")
 [sub_resource type="SystemFont" id="SystemFont_ev4kj"]
 font_names = PackedStringArray("Pixeled")
 
-[node name="Main_Menu" type="Control" unique_id=1614583327 node_paths=PackedStringArray("start", "art")]
+[node name="Main_Menu" type="Control" unique_id=1614583327 node_paths=PackedStringArray("start", "art", "music")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,6 +47,7 @@ grow_vertical = 2
 script = ExtResource("1_c7oo3")
 start = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Button")
 art = NodePath("Background")
+music = NodePath("BackgroundMusic")
 
 [node name="Background" type="AnimatedSprite2D" parent="." unique_id=353253748]
 position = Vector2(320, 181)
@@ -115,3 +117,6 @@ layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = SubResource("SystemFont_ev4kj")
 theme_override_font_sizes/font_size = 16
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="." unique_id=1529991550]
+stream = ExtResource("3_sg7ab")

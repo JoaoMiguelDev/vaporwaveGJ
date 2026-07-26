@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b18wvqwgaftte"
+path="res://.godot/imported/som de tela de morte (com efeito vhs).wav-34d30ad6469414130c6dd99199fd2fb0.sample"
+
+[deps]
+
+source_file="res://Assets/SoundEffects/som de tela de morte (com efeito vhs).wav"
+dest_files=["res://.godot/imported/som de tela de morte (com efeito vhs).wav-34d30ad6469414130c6dd99199fd2fb0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

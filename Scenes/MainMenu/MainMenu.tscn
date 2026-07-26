@@ -1,7 +1,34 @@
 [gd_scene format=3 uid="uid://ddu2sunwuvf5m"]
 
 [ext_resource type="Script" uid="uid://cf7wlxhy0hvp6" path="res://Scenes/MainMenu/MainMenu.cs" id="1_c7oo3"]
-[ext_resource type="Texture2D" uid="uid://b7ri2pwfxcvh6" path="res://Assets/Sprites/Tiles/tilechao.png" id="2_sg7ab"]
+[ext_resource type="Texture2D" uid="uid://dlwash5c5n258" path="res://Assets/Sprites/Ui/tela_inicio-Sheet.png" id="2_c7oo3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7oo3"]
+atlas = ExtResource("2_c7oo3")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sg7ab"]
+atlas = ExtResource("2_c7oo3")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ev4kj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7oo3")
+}],
+"loop": 1,
+"name": &"Activated",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sg7ab")
+}],
+"loop": 1,
+"name": &"Normal",
+"speed": 5.0
+}]
 
 [sub_resource type="SystemFont" id="SystemFont_c7oo3"]
 font_names = PackedStringArray("Pixeled")
@@ -9,10 +36,7 @@ font_names = PackedStringArray("Pixeled")
 [sub_resource type="SystemFont" id="SystemFont_ev4kj"]
 font_names = PackedStringArray("Pixeled")
 
-[sub_resource type="SystemFont" id="SystemFont_tl5bo"]
-font_names = PackedStringArray("Pixeled")
-
-[node name="Main_Menu" type="Control" unique_id=1614583327 node_paths=PackedStringArray("start", "exit")]
+[node name="Main_Menu" type="Control" unique_id=1614583327 node_paths=PackedStringArray("start", "art")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,25 +45,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c7oo3")
 start = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Button")
-exit = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Button2")
+art = NodePath("Background")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1842130758]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_sg7ab")
+[node name="Background" type="AnimatedSprite2D" parent="." unique_id=353253748]
+position = Vector2(320, 181)
+scale = Vector2(1, 1.0055555)
+sprite_frames = SubResource("SpriteFrames_ev4kj")
+animation = &"Normal"
+autoplay = "Normal"
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=343485054]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
@@ -53,6 +75,8 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1329706405]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9647059, 0.99607843, 0.8509804, 1)
+theme_override_colors/font_outline_color = Color(0.88235295, 0.61960787, 0.8392157, 1)
 theme_override_constants/outline_size = 16
 theme_override_fonts/font = SubResource("SystemFont_c7oo3")
 theme_override_font_sizes/font_size = 30
@@ -66,7 +90,7 @@ alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=742803260]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 35
 alignment = 1
 
 [node name="Separator2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=368045177]
@@ -81,20 +105,13 @@ layout_mode = 2
 [node name="Separator6" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=778672074]
 layout_mode = 2
 
+[node name="Separator3" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=549770492]
+layout_mode = 2
+
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1518094688]
-custom_minimum_size = Vector2(120, 30)
+visibility_layer = 0
+custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = SubResource("SystemFont_ev4kj")
 theme_override_font_sizes/font_size = 16
-text = "Threat Check"
-
-[node name="Separator3" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=549770492]
-layout_mode = 2
-
-[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=62724245]
-layout_mode = 2
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = SubResource("SystemFont_tl5bo")
-theme_override_font_sizes/font_size = 16
-text = "Exit"

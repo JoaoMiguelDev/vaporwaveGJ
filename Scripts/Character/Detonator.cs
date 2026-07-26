@@ -117,11 +117,11 @@ public partial class Detonator : CharacterBody2D
 		
 		string animationName = newState switch
 		{
-		    AnimationState.Idle => "idle",
-		    AnimationState.Walk => "walk",
-		    AnimationState.Dash => "dash",
-		    AnimationState.Die => "die",
-		    _ => "idle"
+			AnimationState.Idle => "idle",
+			AnimationState.Walk => "walk",
+			AnimationState.Dash => "dash",
+			AnimationState.Die => "die",
+			_ => "idle"
 		};
 
 		sprite2D.Play(animationName);

@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dljyh6bi484kq" path="res://Scenes/Enemies/statue_boss.tscn" id="10_k2mw1"]
 [ext_resource type="PackedScene" uid="uid://vxpwkjo58a0i" path="res://Scenes/Ui/crt.tscn" id="11_hwvp3"]
 [ext_resource type="PackedScene" uid="uid://bkkofvt0kb1kk" path="res://Scenes/boss_room.tscn" id="15_tjl6l"]
+[ext_resource type="PackedScene" uid="uid://lgkgq65lcon0" path="res://Scenes/Enemies/dummy.tscn" id="16_3628d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dpyx"]
 texture = ExtResource("1_tlcug")
@@ -436,3 +437,6 @@ statueBoss = NodePath("../StatueBoss")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossRoom" unique_id=875595483]
 position = Vector2(12.5, -6.5)
 shape = SubResource("RectangleShape2D_gvqo2")
+
+[node name="Dummy" parent="." unique_id=1489809556 instance=ExtResource("16_3628d")]
+position = Vector2(451, 121)

@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://ddu2sunwuvf5m"]
+
+[ext_resource type="Script" uid="uid://cf7wlxhy0hvp6" path="res://Scenes/MainMenu/MainMenu.cs" id="1_c7oo3"]
+[ext_resource type="Texture2D" uid="uid://b7ri2pwfxcvh6" path="res://Assets/Sprites/Tiles/tilechao.png" id="2_sg7ab"]
+
+[sub_resource type="SystemFont" id="SystemFont_c7oo3"]
+font_names = PackedStringArray("Pixeled")
+
+[sub_resource type="SystemFont" id="SystemFont_ev4kj"]
+font_names = PackedStringArray("Pixeled")
+
+[sub_resource type="SystemFont" id="SystemFont_tl5bo"]
+font_names = PackedStringArray("Pixeled")
+
+[node name="Main_Menu" type="Control" unique_id=1614583327 node_paths=PackedStringArray("start", "exit")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c7oo3")
+start = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Button")
+exit = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Button2")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1842130758]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_sg7ab")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=343485054]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=877540125]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Separator" type="Control" parent="MarginContainer/VBoxContainer" unique_id=349046358]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1329706405]
+layout_mode = 2
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = SubResource("SystemFont_c7oo3")
+theme_override_font_sizes/font_size = 30
+text = "DetDefender.exe"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1530606852]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=742803260]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Separator2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=368045177]
+layout_mode = 2
+
+[node name="Separator4" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=359084664]
+layout_mode = 2
+
+[node name="Separator5" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=882350789]
+layout_mode = 2
+
+[node name="Separator6" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=778672074]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1518094688]
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = SubResource("SystemFont_ev4kj")
+theme_override_font_sizes/font_size = 16
+text = "Threat Check"
+
+[node name="Separator3" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=549770492]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=62724245]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = SubResource("SystemFont_tl5bo")
+theme_override_font_sizes/font_size = 16
+text = "Exit"

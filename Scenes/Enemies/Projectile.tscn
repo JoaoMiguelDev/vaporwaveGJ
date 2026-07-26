@@ -7,7 +7,7 @@
 radius = 9.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tl5bo"]
-radius = 17.029387
+radius = 11.18034
 
 [node name="Projectile" type="CharacterBody2D" unique_id=1887555928]
 collision_layer = 0

@@ -12,7 +12,7 @@ public partial class StatueBoss : CharacterBody2D
 	//	  5	   3			
 	//		4
 	[Signal] public delegate void BossHealthChangedEventHandler(int current, int max);
-    [Signal] public delegate void BattleStartedEventHandler();
+	[Signal] public delegate void BattleStartedEventHandler();
 	[Signal] public delegate void BossDiedEventHandler();
 	[Export] public Godot.Collections.Array<Marker2D> ProjectileSpawnPoints { get; set; } = new();
 	[Export] public Godot.Collections.Array<BossLaser> Lasers { get; set; } = new();
@@ -41,70 +41,70 @@ public partial class StatueBoss : CharacterBody2D
 	private int _health = 40;
 	public int Health
 	{
-    	get => _health;
-    	private set
-    	{
-        	_health = Mathf.Clamp(value, 0, MaxHealth);
-        	EmitSignal(SignalName.BossHealthChanged, _health, MaxHealth);
-        	if (_health == 0)
+		get => _health;
+		private set
+		{
+			_health = Mathf.Clamp(value, 0, MaxHealth);
+			EmitSignal(SignalName.BossHealthChanged, _health, MaxHealth);
+			if (_health == 0)
 			{
 				EmitSignal(SignalName.BossDied);
 				Die();
 			} 
-    	}
+		}
 	}
 
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 		// EnterState(BossState.Idle);
-    }
+	}
 
-    public override void _PhysicsProcess(double delta)
-    {
+	public override void _PhysicsProcess(double delta)
+	{
 		float deltaF = (float) delta;
 
 		switch (CurrentState)
-        {
-            case BossState.Idle:
-                break;
+		{
+			case BossState.Idle:
+				break;
 
-            case BossState.LaserSpin:
+			case BossState.LaserSpin:
 				LaserSpin(deltaF);
-                break;
+				break;
 
-            case BossState.OmniShoot:
+			case BossState.OmniShoot:
 				OmnidirectionShoot();
-                break;
-        }
-    }
+				break;
+		}
+	}
 
-    private void EnterState(BossState newState)
-    {
-        CurrentState = newState;
-        // AnimatedSprite.Play(newState.ToString());
+	private void EnterState(BossState newState)
+	{
+		CurrentState = newState;
+		// AnimatedSprite.Play(newState.ToString());
 
-        switch (newState)
-        {
-            case BossState.Idle:
+		switch (newState)
+		{
+			case BossState.Idle:
 				// DeactivateLasers();
-                IdleTimer.Start();
+				IdleTimer.Start();
 				sprite2D.Play("idle");
-                break;
+				break;
 
-            case BossState.LaserSpin:
+			case BossState.LaserSpin:
 				GD.Print("Vou começar a soltar laser");
-                StartupLaserSpinTimer.Start();
+				StartupLaserSpinTimer.Start();
 				sprite2D.Play("attack");
 				EmitLaserStartParticles();
-                break;
+				break;
 
-            case BossState.OmniShoot:
-                StartupOmniShootTimer.Start();
+			case BossState.OmniShoot:
+				StartupOmniShootTimer.Start();
 				sprite2D.Play("attack");
 				EmitOmnishootStartParticles();
-                break;
-        }
-    }
+				break;
+		}
+	}
 
 	//Laser spin state methods
 	private void LaserSpin(float delta)
@@ -159,14 +159,14 @@ public partial class StatueBoss : CharacterBody2D
 
 	public void _on_idle_timer_timeout()
 	{
-    	if (GD.Randi() % 2 == 0)
-    	{
-    	    EnterState(BossState.LaserSpin);
-    	}
-    	else
-    	{
-    	    EnterState(BossState.OmniShoot);
-    	}
+		if (GD.Randi() % 2 == 0)
+		{
+			EnterState(BossState.LaserSpin);
+		}
+		else
+		{
+			EnterState(BossState.OmniShoot);
+		}
 	}
 
 	//Omnishoot state methods
@@ -178,19 +178,19 @@ public partial class StatueBoss : CharacterBody2D
 
 		CanShoot = false;
 		ShootIntervalTimer.Start();
-	    foreach (Marker2D spawnPoint in ProjectileSpawnPoints)
-	    {
-	        if (spawnPoint == null)
-	            continue;
+		foreach (Marker2D spawnPoint in ProjectileSpawnPoints)
+		{
+			if (spawnPoint == null)
+				continue;
 
-	        var projectile = BossProjectileScene.Instantiate<BossProjectile>();
-	        projectile.GlobalPosition = spawnPoint.GlobalPosition;
+			var projectile = BossProjectileScene.Instantiate<BossProjectile>();
+			projectile.GlobalPosition = spawnPoint.GlobalPosition;
 
-	        Vector2 direction = -(GlobalPosition - spawnPoint.GlobalPosition).Normalized();
-	        projectile.SetDirection(direction);
+			Vector2 direction = -(GlobalPosition - spawnPoint.GlobalPosition).Normalized();
+			projectile.SetDirection(direction);
 
-	        GetTree().CurrentScene.AddChild(projectile);
-	    }
+			GetTree().CurrentScene.AddChild(projectile);
+		}
 	}
 
 	private void EmitOmnishootStartParticles()
@@ -243,11 +243,11 @@ public partial class StatueBoss : CharacterBody2D
 	private void EmmitHitParticles()
 	{
 		var hitParticles = HitParticlesScene.Instantiate<GpuParticles2D>();
-	    GetParent().AddChild(hitParticles);
-	    hitParticles.GlobalPosition = GlobalPosition;
-	    hitParticles.Emitting = true;
+		GetParent().AddChild(hitParticles);
+		hitParticles.GlobalPosition = GlobalPosition;
+		hitParticles.Emitting = true;
 	   
-	    hitParticles.Finished += hitParticles.QueueFree;  
+		hitParticles.Finished += hitParticles.QueueFree;  
 	}
 
 	public void _on_boss_hitbox_area_entered(Area2D area)

@@ -25,7 +25,7 @@ shape = SubResource("CircleShape2D_4u13r")
 [node name="HitBox" type="Area2D" parent="." unique_id=1689308368 groups=["Enemies"]]
 visible = false
 collision_layer = 4
-collision_mask = 19
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1244225826]
 position = Vector2(0, 1)

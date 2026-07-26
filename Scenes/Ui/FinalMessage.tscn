@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://27cowo0pg386"]
+
+[ext_resource type="Script" uid="uid://cl5fp4hmbxagy" path="res://Scenes/Ui/FinalMessage.cs" id="1_mxg8r"]
+[ext_resource type="Texture2D" uid="uid://ekklyyd4hhbj" path="res://Assets/Sprites/Ui/window.png" id="1_njy6t"]
+
+[sub_resource type="SystemFont" id="SystemFont_ev4kj"]
+font_names = PackedStringArray("Pixeled")
+
+[node name="FinalMessage" type="Control" unique_id=570985413]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_mxg8r")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=464964602]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 0
+offset_left = -71.0
+offset_top = -75.0
+offset_right = 79.0
+offset_bottom = 75.0
+texture = ExtResource("1_njy6t")
+
+[node name="Label" type="Label" parent="TextureRect" unique_id=1298987743]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 55.0
+offset_right = 139.0
+offset_bottom = 104.0
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = SubResource("SystemFont_ev4kj")
+theme_override_font_sizes/font_size = 6
+text = "Your machine is safe now!
+        Press esc to exit"

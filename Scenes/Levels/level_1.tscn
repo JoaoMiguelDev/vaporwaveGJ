@@ -330,10 +330,11 @@ size = Vector2(637, 633)
 
 [node name="Level1" type="Node2D" unique_id=83989499]
 
-[node name="GameManager" parent="." unique_id=372264058 node_paths=PackedStringArray("detonator", "hud", "shakyCamera") instance=ExtResource("1_u5ghp")]
+[node name="GameManager" parent="." unique_id=372264058 node_paths=PackedStringArray("detonator", "hud", "shakyCamera", "statueboss") instance=ExtResource("1_u5ghp")]
 detonator = NodePath("../Detonator")
 hud = NodePath("../CanvasLayer/Hud")
 shakyCamera = NodePath("../Detonator/ShakyCamera")
+statueboss = NodePath("../StatueBoss")
 
 [node name="ParallaxLayers" type="Node2D" parent="." unique_id=314930948]
 

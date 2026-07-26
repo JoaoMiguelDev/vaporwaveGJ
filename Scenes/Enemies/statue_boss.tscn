@@ -6,6 +6,8 @@
 [ext_resource type="Shader" uid="uid://dqlat467spl85" path="res://Assets/Shaders/Hitflash.gdshader" id="2_y3kvw"]
 [ext_resource type="PackedScene" uid="uid://dmcomvlu0xbw8" path="res://Scenes/Enemies/boss_laser.tscn" id="3_l72s5"]
 [ext_resource type="PackedScene" uid="uid://jcq141cffniq" path="res://Scenes/Enemies/boss_projectile.tscn" id="3_qgc24"]
+[ext_resource type="AudioStream" uid="uid://db2s8lfdto78w" path="res://Assets/SoundEffects/BossShootSfx.wav" id="7_q4fd0"]
+[ext_resource type="AudioStream" uid="uid://jer50fiocqsi" path="res://Assets/SoundEffects/BossLaserSfx.wav" id="8_1xdxb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4u13r"]
 size = Vector2(88, 128)
@@ -133,7 +135,7 @@ _data = {
 &"hit": SubResource("Animation_q4fd0")
 }
 
-[node name="StatueBoss" type="CharacterBody2D" unique_id=1629522420 node_paths=PackedStringArray("ProjectileSpawnPoints", "Lasers", "LaserStartParticles", "OmnishootStartParticles", "LaserNode", "animation", "sprite2D", "IdleTimer", "StartupLaserSpinTimer", "LaserSpinTimer", "ShootIntervalTimer", "StartupOmniShootTimer", "OmnishootTimer")]
+[node name="StatueBoss" type="CharacterBody2D" unique_id=1629522420 node_paths=PackedStringArray("ProjectileSpawnPoints", "Lasers", "LaserStartParticles", "OmnishootStartParticles", "LaserNode", "ProjectileNode", "animation", "sprite2D", "BossShootSfx", "BossLaserSfx", "IdleTimer", "StartupLaserSpinTimer", "LaserSpinTimer", "ShootIntervalTimer", "StartupOmniShootTimer", "OmnishootTimer")]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_lmknw")
@@ -142,10 +144,13 @@ Lasers = [NodePath("Lasers/Marker2D/BossLaser"), NodePath("Lasers/Marker2D2/Boss
 LaserStartParticles = [NodePath("Lasers/Marker2D/GPUParticles2D"), NodePath("Lasers/Marker2D2/GPUParticles2D"), NodePath("Lasers/Marker2D3/GPUParticles2D"), NodePath("Lasers/Marker2D4/GPUParticles2D")]
 OmnishootStartParticles = [NodePath("Projectiles/NorthSpawn/GPUParticles2D"), NodePath("Projectiles/NortheastSpawn/GPUParticles2D"), NodePath("Projectiles/EastSpawn/GPUParticles2D"), NodePath("Projectiles/SoutheastSpawn/GPUParticles2D"), NodePath("Projectiles/SouthSpawn/GPUParticles2D"), NodePath("Projectiles/SouthwestSpawn/GPUParticles2D"), NodePath("Projectiles/WestSpawn/GPUParticles2D"), NodePath("Projectiles/NorthwestSpawn/GPUParticles2D")]
 LaserNode = NodePath("Lasers")
+ProjectileNode = NodePath("Projectiles")
 animation = NodePath("AnimationPlayer")
 sprite2D = NodePath("AnimatedSprite2D")
 HitParticlesScene = ExtResource("2_wjlpm")
 BossProjectileScene = ExtResource("3_qgc24")
+BossShootSfx = NodePath("BossShootSfx")
+BossLaserSfx = NodePath("BossLaserSfx")
 IdleTimer = NodePath("IdleTimer")
 StartupLaserSpinTimer = NodePath("StartUpLaserSpinTimer")
 LaserSpinTimer = NodePath("LaserSpinTimer")
@@ -315,6 +320,16 @@ one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1871450067]
 libraries/ = SubResource("AnimationLibrary_1xdxb")
+
+[node name="BossShootSfx" type="AudioStreamPlayer2D" parent="." unique_id=1748988417]
+stream = ExtResource("7_q4fd0")
+volume_db = -10.0
+max_distance = 1000.0
+
+[node name="BossLaserSfx" type="AudioStreamPlayer2D" parent="." unique_id=257445343]
+stream = ExtResource("8_1xdxb")
+volume_db = 10.0
+max_distance = 1000.0
 
 [connection signal="area_entered" from="BossHitbox" to="." method="_on_boss_hitbox_area_entered"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]

@@ -8,6 +8,7 @@ public partial class GameManager : Node
 	[Export] private Hud hud;
 	[Export] private ShakyCamera shakyCamera;
 	[Export] private StatueBoss statueboss;
+	[Export] private CanvasLayer FinalMessageLayer;
 	private PackedScene message = GD.Load<PackedScene>("res://Scenes/Ui/FinalMessage.tscn");
 	public override void _Ready()
 	{
@@ -37,7 +38,6 @@ public partial class GameManager : Node
 
 	private async void BossDied(){
 		await ToSignal(GetTree().CreateTimer(2.0f), Timer.SignalName.Timeout);
-		detonator.AddChild(message.Instantiate());
-		
+		FinalMessageLayer.AddChild(message.Instantiate());		
 	}
 }

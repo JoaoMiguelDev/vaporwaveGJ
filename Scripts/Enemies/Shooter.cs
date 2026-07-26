@@ -9,6 +9,7 @@ public partial class Shooter : CharacterBody2D
 	[Export] private PackedScene DieParticlesScene;
 	[Export] private AnimationPlayer animation;
 	[Export] private AnimatedSprite2D Sprite2D;
+	[Export] private AudioStreamPlayer2D ShootSfx;
 	public const float speed = 50.0f;
 	private int vida = 1;
 	private CharacterBody2D Player;
@@ -64,6 +65,7 @@ public partial class Shooter : CharacterBody2D
 			gameManager.ShakeCamera(0.1f, 0.2f);
 			EmmitHitParticles();
 			animation.Play("hit");
+			AudioManager.Instance.PlaySfxHit();
 			vida -= 1;
 			
 			if (vida == 0){
@@ -88,6 +90,7 @@ public partial class Shooter : CharacterBody2D
 	private void morrer(){
 		EmitSignal(SignalName.ShooterDeath);
 		EmmitDieParticles();
+		AudioManager.Instance.PlaySfxExplosion();
 		QueueFree();	
 	}
 	
@@ -96,6 +99,7 @@ public partial class Shooter : CharacterBody2D
 		if(!CanShoot) return;
 		
 		CanShoot = false;
+		ShootSfx.Play();
 		ShootTimer.Start();
 		var projectile = ProjectileScene.Instantiate<Projectile>();
 		projectile.GlobalPosition = GlobalPosition;

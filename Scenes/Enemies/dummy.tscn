@@ -2,6 +2,15 @@
 
 [ext_resource type="Script" uid="uid://bquago1me60sx" path="res://Scripts/Enemies/Dummy.cs" id="1_ccesc"]
 [ext_resource type="Texture2D" uid="uid://b7ulyrf5smscc" path="res://Assets/Sprites/Enemies/dummy-Sheet.png" id="1_fotkt"]
+[ext_resource type="PackedScene" uid="uid://5djxu5h6flfl" path="res://Scenes/Character/take_damage_particles.tscn" id="2_aql14"]
+[ext_resource type="Shader" uid="uid://dqlat467spl85" path="res://Assets/Shaders/Hitflash.gdshader" id="2_dplh5"]
+[ext_resource type="AudioStream" uid="uid://b67hlpk00h3cu" path="res://Assets/SoundEffects/efeito de dano.wav" id="5_12477"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aql14"]
+resource_local_to_scene = true
+shader = ExtResource("2_dplh5")
+shader_parameter/HitFlashColor = Color(1, 1, 1, 1)
+shader_parameter/HitFlashOn = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ccesc"]
 atlas = ExtResource("1_fotkt")
@@ -61,10 +70,13 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_amsxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ccesc")
 }],
-"loop": 1,
-"name": &"Hit",
-"speed": 5.0
+"loop": 0,
+"name": &"hit",
+"speed": 16.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ibn5x"]
@@ -73,17 +85,58 @@ size = Vector2(16, 47)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vdq05"]
 size = Vector2(20, 49)
 
-[node name="Dummy" type="CharacterBody2D" unique_id=1489809556 node_paths=PackedStringArray("animation", "Hitbox")]
+[sub_resource type="Animation" id="Animation_12477"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/HitFlashOn")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_h6xn8"]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/HitFlashOn")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lcdn3"]
+_data = {
+&"RESET": SubResource("Animation_12477"),
+&"hit": SubResource("Animation_h6xn8")
+}
+
+[node name="Dummy" type="CharacterBody2D" unique_id=1489809556 node_paths=PackedStringArray("Sprite2D", "Animation", "Hitbox", "SfxHit")]
 collision_layer = 4
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_ccesc")
-animation = NodePath("Sprite2D")
+Sprite2D = NodePath("Sprite2D")
+Animation = NodePath("AnimationPlayer")
 Hitbox = NodePath("Hitbox")
+HitParticlesScene = ExtResource("2_aql14")
+SfxHit = NodePath("HitSfx")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1011654183]
+material = SubResource("ShaderMaterial_aql14")
 sprite_frames = SubResource("SpriteFrames_ev4kj")
-animation = &"Hit"
+animation = &"hit"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=409036167]
 position = Vector2(0, 0.5)
@@ -98,5 +151,13 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_vdq05")
 
 [node name="Timer" type="Timer" parent="." unique_id=1050024620]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1807900890]
+libraries/ = SubResource("AnimationLibrary_lcdn3")
+
+[node name="HitSfx" type="AudioStreamPlayer" parent="." unique_id=493497036]
+stream = ExtResource("5_12477")
+volume_db = -5.0
+pitch_scale = 2.0
 
 [connection signal="area_entered" from="Hitbox" to="." method="OnHitboxEntered"]

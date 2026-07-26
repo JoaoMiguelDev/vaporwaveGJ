@@ -19,11 +19,14 @@ public partial class StatueBoss : CharacterBody2D
 	[Export] public Godot.Collections.Array<GpuParticles2D> LaserStartParticles { get; set; } = new();
 	[Export] public Godot.Collections.Array<GpuParticles2D> OmnishootStartParticles { get; set; } = new();
 	[Export] private Node2D LaserNode;
+	[Export] private Node2D ProjectileNode;
 	[Export] private GameManager gameManager;
 	[Export] private AnimationPlayer animation;
 	[Export] private AnimatedSprite2D sprite2D;
 	[Export] private PackedScene HitParticlesScene;
 	[Export] private PackedScene BossProjectileScene;
+	[Export] private AudioStreamPlayer2D BossShootSfx;
+	[Export] private AudioStreamPlayer2D BossLaserSfx;
 
 	//States variables
 	public enum BossState { Idle , LaserSpin , OmniShoot }
@@ -73,6 +76,7 @@ public partial class StatueBoss : CharacterBody2D
 				break;
 
 			case BossState.OmniShoot:
+				ProjectileSpin(deltaF);
 				OmnidirectionShoot();
 				break;
 		}
@@ -118,6 +122,8 @@ public partial class StatueBoss : CharacterBody2D
 		{
 			laser.IsCasting = true;
 		}
+
+		BossLaserSfx.Play();
 	}
 
 	private void DeactivateLasers()
@@ -170,13 +176,17 @@ public partial class StatueBoss : CharacterBody2D
 	}
 
 	//Omnishoot state methods
-
+	private void ProjectileSpin(float delta)
+	{
+		ProjectileNode.Rotation += 0.8f *delta;
+	}
 	private void OmnidirectionShoot()
 	{
 		if(!CanShoot)
 			return;
 
 		CanShoot = false;
+		BossShootSfx.Play();
 		ShootIntervalTimer.Start();
 		foreach (Marker2D spawnPoint in ProjectileSpawnPoints)
 		{
@@ -228,6 +238,7 @@ public partial class StatueBoss : CharacterBody2D
 
 	public void Die()
 	{
+		AudioManager.Instance.PlaySfxExplosion();
 		CallDeferred("queue_free");
 	}
 
@@ -235,6 +246,7 @@ public partial class StatueBoss : CharacterBody2D
 	{
 		animation.Play("hit");
 		sprite2D.Play("hit");
+		AudioManager.Instance.PlaySfxHit();
 		EmmitHitParticles();
 		gameManager.ShakeCamera(0.5f, 0.2f);
 		Health -= amount;		

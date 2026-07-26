@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://vxpwkjo58a0i" path="res://Scenes/Ui/crt.tscn" id="11_hwvp3"]
 [ext_resource type="PackedScene" uid="uid://bkkofvt0kb1kk" path="res://Scenes/boss_room.tscn" id="15_tjl6l"]
 [ext_resource type="PackedScene" uid="uid://lgkgq65lcon0" path="res://Scenes/Enemies/dummy.tscn" id="16_3628d"]
+[ext_resource type="FontFile" uid="uid://doav3g1chicq" path="res://Assets/Fonts/QuinqueFive.ttf" id="17_irw6p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dpyx"]
 texture = ExtResource("1_tlcug")
@@ -330,11 +331,12 @@ size = Vector2(637, 633)
 
 [node name="Level1" type="Node2D" unique_id=83989499]
 
-[node name="GameManager" parent="." unique_id=372264058 node_paths=PackedStringArray("detonator", "hud", "shakyCamera", "statueboss") instance=ExtResource("1_u5ghp")]
+[node name="GameManager" parent="." unique_id=372264058 node_paths=PackedStringArray("detonator", "hud", "shakyCamera", "statueboss", "FinalMessageLayer") instance=ExtResource("1_u5ghp")]
 detonator = NodePath("../Detonator")
 hud = NodePath("../CanvasLayer/Hud")
 shakyCamera = NodePath("../Detonator/ShakyCamera")
 statueboss = NodePath("../StatueBoss")
+FinalMessageLayer = NodePath("../FinalMessageLayer")
 
 [node name="ParallaxLayers" type="Node2D" parent="." unique_id=314930948]
 
@@ -440,4 +442,36 @@ position = Vector2(12.5, -6.5)
 shape = SubResource("RectangleShape2D_gvqo2")
 
 [node name="Dummy" parent="." unique_id=1489809556 instance=ExtResource("16_3628d")]
-position = Vector2(451, 121)
+position = Vector2(153, 103)
+
+[node name="Dummy2" parent="." unique_id=134605334 instance=ExtResource("16_3628d")]
+position = Vector2(217, 103)
+
+[node name="Label" type="Label" parent="." unique_id=572004771]
+offset_left = 64.0
+offset_top = 141.0
+offset_right = 304.0
+offset_bottom = 164.0
+theme_override_fonts/font = ExtResource("17_irw6p")
+theme_override_font_sizes/font_size = 10
+text = "Left click to attack"
+
+[node name="Label2" type="Label" parent="." unique_id=840026218]
+offset_left = 367.0
+offset_top = 140.0
+offset_right = 535.0
+offset_bottom = 163.0
+theme_override_fonts/font = ExtResource("17_irw6p")
+theme_override_font_sizes/font_size = 10
+text = "Space to dash"
+
+[node name="Label3" type="Label" parent="." unique_id=276412196]
+offset_left = 372.0
+offset_top = 170.0
+offset_right = 522.0
+offset_bottom = 193.0
+theme_override_fonts/font = ExtResource("17_irw6p")
+theme_override_font_sizes/font_size = 10
+text = "WASD to move"
+
+[node name="FinalMessageLayer" type="CanvasLayer" parent="." unique_id=1493224711]

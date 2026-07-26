@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://drg3rmtjbfq74"]
+
+[ext_resource type="Script" uid="uid://rv7vd6v1p1gk" path="res://Scripts/AudioManager.cs" id="1_sm2tf"]
+[ext_resource type="PackedScene" uid="uid://bh5nuuldrtwnj" path="res://Scenes/sfx_hit.tscn" id="2_4tj6f"]
+[ext_resource type="PackedScene" uid="uid://v5y3rc7uhu0v" path="res://Scenes/sfx_explosion.tscn" id="3_hhwve"]
+
+[node name="AudioManager" type="Node" unique_id=937953351]
+script = ExtResource("1_sm2tf")
+SfxHitScene = ExtResource("2_4tj6f")
+SfxExplosionScene = ExtResource("3_hhwve")

@@ -1,21 +1,22 @@
 [gd_scene format=3 uid="uid://dxvllpepltywm"]
 
 [ext_resource type="Script" uid="uid://dsbsn1chgfngn" path="res://Scripts/Enemies/Projectile.cs" id="1_xqss5"]
+[ext_resource type="PackedScene" uid="uid://dpiynu5as41qh" path="res://Scenes/Enemies/collision_particles.tscn" id="2_ja771"]
 [ext_resource type="Texture2D" uid="uid://da7vpmg4av7wx" path="res://Assets/Sprites/Enemies/tiro.png" id="2_xqss5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ev4kj"]
 radius = 9.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tl5bo"]
-radius = 11.18034
+radius = 10.049875
 
 [node name="Projectile" type="CharacterBody2D" unique_id=1887555928]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_xqss5")
+CollisionParticlesScene = ExtResource("2_ja771")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1526759965]
-visible = false
 shape = SubResource("CircleShape2D_ev4kj")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=840950587]

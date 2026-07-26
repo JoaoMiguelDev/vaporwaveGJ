@@ -5,6 +5,7 @@ public partial class BossRoom : Area2D
 {
 	[Export] public Godot.Collections.Array<Door> Doors { get; set; } = new();
 	[Export] private StatueBoss statueBoss;
+	[Export] private AudioStreamPlayer BossMusic;
 	private bool Completed = false;
 
     public override void _Ready()
@@ -22,6 +23,7 @@ public partial class BossRoom : Area2D
 		}
 
 		statueBoss.ActivateBossFight();
+		BossMusic.Play();
 	}
 
 	private void StopBossFight()
@@ -30,6 +32,7 @@ public partial class BossRoom : Area2D
 		{
 			door.Open();
 		}
+		BossMusic.Stop();
 		Completed = true;		
 	}
 	private void _on_body_entered(Node2D body)

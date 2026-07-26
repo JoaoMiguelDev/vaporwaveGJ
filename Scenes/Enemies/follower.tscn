@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://dqlat467spl85" path="res://Assets/Shaders/Hitflash.gdshader" id="4_m8lta"]
 [ext_resource type="Texture2D" uid="uid://dh413xqg80tft" path="res://Assets/Sprites/Enemies/follower-Sheet.png" id="5_53h23"]
 [ext_resource type="Texture2D" uid="uid://dpougirdhfbhj" path="res://Assets/Sprites/Enemies/follower_walking-Sheet.png" id="6_6c2lc"]
+[ext_resource type="AudioStream" uid="uid://b67hlpk00h3cu" path="res://Assets/SoundEffects/efeito de dano.wav" id="7_6c2lc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_53h23"]
 resource_local_to_scene = true
@@ -176,7 +177,7 @@ _data = {
 &"hit": SubResource("Animation_khuya")
 }
 
-[node name="Follower" type="CharacterBody2D" unique_id=854438856 node_paths=PackedStringArray("followerArea", "followArea", "Sprite2D", "animation")]
+[node name="Follower" type="CharacterBody2D" unique_id=854438856 node_paths=PackedStringArray("followerArea", "followArea", "Sprite2D", "animation", "SfxHit")]
 collision_layer = 4
 collision_mask = 7
 motion_mode = 1
@@ -187,6 +188,7 @@ HitParticlesScene = ExtResource("2_hqbn2")
 DieParticlesScene = ExtResource("3_m8lta")
 Sprite2D = NodePath("AnimatedSprite2D")
 animation = NodePath("AnimationPlayer")
+SfxHit = NodePath("HitSfx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1596875580]
 material = SubResource("ShaderMaterial_53h23")
@@ -215,3 +217,8 @@ shape = SubResource("CircleShape2D_ev4kj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1819001004]
 libraries/ = SubResource("AnimationLibrary_mglek")
+
+[node name="HitSfx" type="AudioStreamPlayer" parent="." unique_id=2092091297]
+stream = ExtResource("7_6c2lc")
+volume_db = -5.0
+pitch_scale = 2.0

@@ -4,6 +4,7 @@ using System;
 public partial class Sword : Node2D
 {
 	[Export] private AnimationPlayer Animation;
+	[Export] private AudioStreamPlayer SfxSlash;
 	// [Export] private Area2D Hitbox;
 	private bool CanSlash = true;
 	public override void _Process(double delta)
@@ -16,6 +17,7 @@ public partial class Sword : Node2D
 		if (@event.IsActionPressed("attack") && CanSlash)
 		{
 			Animation.Play("slash");
+			SfxSlash.Play();
 			CanSlash = false;
 		}
     }

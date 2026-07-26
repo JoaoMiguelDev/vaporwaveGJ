@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d4dct5vhkm0fq" path="res://Scripts/Character/Sword.cs" id="1_svch3"]
 [ext_resource type="Texture2D" uid="uid://nwd6sh1rfhd4" path="res://Assets/Sprites/Character/Katana.png" id="2_svch3"]
 [ext_resource type="Texture2D" uid="uid://bwyrael1gt2tg" path="res://Assets/Sprites/Character/slash-Sheet.png" id="3_mfti5"]
+[ext_resource type="AudioStream" uid="uid://cwxnxicse5mvv" path="res://Assets/SoundEffects/cortando.wav" id="4_47okd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4u13r"]
 size = Vector2(65, 72)
@@ -203,9 +204,10 @@ _data = {
 &"slash": SubResource("Animation_mfti5")
 }
 
-[node name="Sword" type="Node2D" unique_id=680981106 node_paths=PackedStringArray("Animation")]
+[node name="Sword" type="Node2D" unique_id=680981106 node_paths=PackedStringArray("Animation", "SfxSlash")]
 script = ExtResource("1_svch3")
 Animation = NodePath("AnimationPlayer")
+SfxSlash = NodePath("SfxSlash")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1749543333]
 position = Vector2(39, 0)
@@ -233,5 +235,9 @@ disabled = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=108941212]
 libraries/ = SubResource("AnimationLibrary_47okd")
 speed_scale = 4.0
+
+[node name="SfxSlash" type="AudioStreamPlayer" parent="." unique_id=1331408784]
+stream = ExtResource("4_47okd")
+pitch_scale = 1.31
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

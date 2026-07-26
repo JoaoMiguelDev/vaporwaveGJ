@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://v5y3rc7uhu0v"]
+
+[ext_resource type="AudioStream" uid="uid://dxjxu5y7bfey2" path="res://Assets/SoundEffects/explosion.wav" id="1_3fpgc"]
+
+[node name="SfxExplosion" type="AudioStreamPlayer" unique_id=493026343]
+stream = ExtResource("1_3fpgc")
+pitch_scale = 1.61

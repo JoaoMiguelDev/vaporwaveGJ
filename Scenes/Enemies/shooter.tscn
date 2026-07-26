@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cqu1s4jkh6qqe" path="res://Scenes/Character/die_paticles.tscn" id="4_tmvw0"]
 [ext_resource type="Shader" uid="uid://dqlat467spl85" path="res://Assets/Shaders/Hitflash.gdshader" id="5_tmvw0"]
 [ext_resource type="Texture2D" uid="uid://dotudu7x2jnsu" path="res://Assets/Sprites/Enemies/Shooter sprite.png" id="6_tmvw0"]
+[ext_resource type="AudioStream" uid="uid://b67hlpk00h3cu" path="res://Assets/SoundEffects/efeito de dano.wav" id="7_1svgy"]
+[ext_resource type="AudioStream" uid="uid://d4hc2kh4sy710" path="res://Assets/SoundEffects/laserShoot.wav" id="8_k1do7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1svgy"]
 resource_local_to_scene = true
@@ -88,7 +90,7 @@ _data = {
 &"hit": SubResource("Animation_s3dpm")
 }
 
-[node name="Shooter" type="CharacterBody2D" unique_id=1349887448 node_paths=PackedStringArray("ShootTimer", "animation", "Sprite2D")]
+[node name="Shooter" type="CharacterBody2D" unique_id=1349887448 node_paths=PackedStringArray("ShootTimer", "animation", "Sprite2D", "ShootSfx")]
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_gf2dn")
@@ -98,6 +100,7 @@ HitParticlesScene = ExtResource("3_flciy")
 DieParticlesScene = ExtResource("4_tmvw0")
 animation = NodePath("AnimationPlayer")
 Sprite2D = NodePath("AnimatedSprite2D")
+ShootSfx = NodePath("ShootSfx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1358215343]
 material = SubResource("ShaderMaterial_1svgy")
@@ -129,5 +132,15 @@ shape = SubResource("CircleShape2D_kqaj2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1623372138]
 libraries/ = SubResource("AnimationLibrary_lp70y")
+
+[node name="HitSfx" type="AudioStreamPlayer" parent="." unique_id=1120642761]
+stream = ExtResource("7_1svgy")
+volume_db = -5.0
+pitch_scale = 2.0
+
+[node name="ShootSfx" type="AudioStreamPlayer2D" parent="." unique_id=187200762]
+stream = ExtResource("8_k1do7")
+volume_db = -15.0
+max_distance = 600.0
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

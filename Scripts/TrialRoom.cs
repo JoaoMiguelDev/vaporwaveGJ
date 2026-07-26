@@ -8,75 +8,110 @@ public partial class TrialRoom : Area2D
 	[Export] private PackedScene ShooterScene;
 	[Export] private PackedScene FollowerScene;
 	[Export] private Node2D EnemiesNode;
-	private int EnemyQuantity;
-	private bool Completed = false;
+	[Export] private AudioStreamPlayer TrialSong;
+    private const int TotalWaves = 3;
+    private int CurrentWave = 0;
+    private int EnemyQuantity;
+    private bool Completed = false;
 
     public override void _Ready()
     {
        
     }
 
-	private void StartTrial()
-	{
-		if(Completed)
-			return;
+    private void StartTrial()
+    {
+        if (Completed)
+            return;
 
-		foreach(Door door in Doors)
-		{
-			door.Close();
-		}
+        CurrentWave = 0;
+        EnemyQuantity = 0;
+        Completed = false;
 
-		for(int i = 0; i < SpawnPoints.Count; i++)
-		{
-			Marker2D spawnPoint = SpawnPoints[i];
+        foreach (Door door in Doors)
+        {
+            door.Close();
+        }
 
-			PackedScene enemyScene = (i % 2 == 0) ? ShooterScene : FollowerScene;
-			Node2D enemy = enemyScene.Instantiate<Node2D>();
+        TrialSong.Play();
+        StartNextWave();
+    }
 
-			if(enemy is Shooter shooter)
-			{
-				shooter.ShooterDeath += OnEnemyKilled;
-			}
-			if(enemy is Follower follower)
-			{
-				follower.FollowerDeath += OnEnemyKilled;
-			}
-			EnemiesNode.AddChild(enemy);
-			enemy.GlobalPosition = spawnPoint.GlobalPosition;	
-			EnemyQuantity ++;	
-		}
-	}
+    private void StartNextWave()
+    {
+        if (Completed)
+            return;
 
-	private void StopTrial()
-	{
-		GD.Print("Entrei porra");
-		foreach(Door door in Doors)
-		{
-			door.Open();
-		}
-		Completed = true;		
-	}
+        CurrentWave++;
 
-	private void VerifyEnemiesQuantity()
-	{
-		GD.Print(EnemyQuantity);
-		if(EnemyQuantity == 0)
-		{
-			StopTrial();
-		}
-	}
+        if (CurrentWave > TotalWaves)
+        {
+            StopTrial();
+            return;
+        }
 
-	private void OnEnemyKilled()
-	{
-		EnemyQuantity --;
-		VerifyEnemiesQuantity();	
-	}
+        EnemyQuantity = 0;
 
-	private void _on_body_entered(Node2D body)
-	{
-		if(body is Detonator)
-		{
-			CallDeferred(nameof(StartTrial));
-		}
-	}
+        for (int i = 0; i < SpawnPoints.Count; i++)
+        {
+            Marker2D spawnPoint = SpawnPoints[i];
+
+            PackedScene enemyScene = Random.Shared.Next(0, 2) == 0 ? ShooterScene : FollowerScene;
+            Node2D enemy = enemyScene.Instantiate<Node2D>();
+
+            if (enemy is Shooter shooter)
+            {
+                shooter.ShooterDeath += OnEnemyKilled;
+            }
+            if (enemy is Follower follower)
+            {
+                follower.FollowerDeath += OnEnemyKilled;
+            }
+
+            EnemiesNode.AddChild(enemy);
+            enemy.GlobalPosition = spawnPoint.GlobalPosition;
+            EnemyQuantity++;
+        }
+    }
+
+    private void StopTrial()
+    {
+        foreach (Door door in Doors)
+        {
+            door.Open();
+        }
+
+        TrialSong.Stop();
+        Completed = true;
+    }
+
+    private void VerifyEnemiesQuantity()
+    {
+        if (EnemyQuantity == 0)
+        {
+            if (CurrentWave < TotalWaves)
+            {
+                StartNextWave();
+            }
+            else
+            {
+                StopTrial();
+            }
+        }
+    }
+
+    private void OnEnemyKilled()
+    {
+        EnemyQuantity--;
+        // VerifyEnemiesQuantity();
+        CallDeferred(nameof(VerifyEnemiesQuantity));
+    }
+
+    private void _on_body_entered(Node2D body)
+    {
+        if (body is Detonator)
+        {
+            CallDeferred(nameof(StartTrial));
+        }
+    }
 }

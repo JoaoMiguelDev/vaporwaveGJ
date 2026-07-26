@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bh5nuuldrtwnj"]
+
+[ext_resource type="AudioStream" uid="uid://b67hlpk00h3cu" path="res://Assets/SoundEffects/efeito de dano.wav" id="1_xvoi2"]
+
+[node name="SfxHit" type="AudioStreamPlayer" unique_id=232114497]
+stream = ExtResource("1_xvoi2")
+volume_db = -0.5
+pitch_scale = 2.0

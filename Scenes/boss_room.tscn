@@ -1,10 +1,16 @@
 [gd_scene format=3 uid="uid://bkkofvt0kb1kk"]
 
 [ext_resource type="Script" uid="uid://dakx0oefy8e5o" path="res://Scripts/BossRoom.cs" id="1_4kqfc"]
+[ext_resource type="AudioStream" uid="uid://ba1vc725xqydq" path="res://Assets/Soundtracks/boss.ogg" id="2_0x2vs"]
 
-[node name="BossRoom" type="Area2D" unique_id=1856091873]
+[node name="BossRoom" type="Area2D" unique_id=1856091873 node_paths=PackedStringArray("BossMusic")]
 collision_layer = 128
 collision_mask = 2
 script = ExtResource("1_4kqfc")
+BossMusic = NodePath("BossMusic")
+
+[node name="BossMusic" type="AudioStreamPlayer" parent="." unique_id=1620325564]
+stream = ExtResource("2_0x2vs")
+volume_db = -5.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -2,32 +2,51 @@
 
 [ext_resource type="Script" uid="uid://cl5fp4hmbxagy" path="res://Scenes/Ui/FinalMessage.cs" id="1_mxg8r"]
 [ext_resource type="Texture2D" uid="uid://ekklyyd4hhbj" path="res://Assets/Sprites/Ui/window.png" id="1_njy6t"]
-
-[sub_resource type="SystemFont" id="SystemFont_ev4kj"]
-font_names = PackedStringArray("Pixeled")
+[ext_resource type="FontFile" uid="uid://doav3g1chicq" path="res://Assets/Fonts/QuinqueFive.ttf" id="3_pv5va"]
 
 [node name="FinalMessage" type="Control" unique_id=570985413]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_mxg8r")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=464964602]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 0
-offset_left = -71.0
-offset_top = -75.0
-offset_right = 79.0
-offset_bottom = 75.0
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1153982006]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_njy6t")
 
-[node name="Label" type="Label" parent="TextureRect" unique_id=1298987743]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 55.0
-offset_right = 139.0
-offset_bottom = 104.0
-theme_override_constants/outline_size = 3
-theme_override_fonts/font = SubResource("SystemFont_ev4kj")
-theme_override_font_sizes/font_size = 6
-text = "Your machine is safe now!
-        Press esc to exit"
+[node name="Label" type="Label" parent="." unique_id=1298987743]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -14.5
+offset_right = 150.0
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.3254902, 0.2627451, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("3_pv5va")
+theme_override_font_sizes/font_size = 10
+text = "Your machine is 
+safe now!
+Press esc to exit"
+horizontal_alignment = 1
+vertical_alignment = 1

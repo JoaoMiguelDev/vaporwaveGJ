@@ -3,15 +3,21 @@
 [ext_resource type="Script" uid="uid://b614uqh5l8qnu" path="res://Scripts/TrialRoom.cs" id="1_6y4ix"]
 [ext_resource type="PackedScene" uid="uid://c3wwhx22y8q7x" path="res://Scenes/Enemies/shooter.tscn" id="2_xtghk"]
 [ext_resource type="PackedScene" uid="uid://qro1nk7uq7r0" path="res://Scenes/Enemies/follower.tscn" id="3_fkeb8"]
+[ext_resource type="AudioStream" uid="uid://dpk0rmlhh81tt" path="res://Assets/Soundtracks/B - primeira fase.ogg" id="4_fkeb8"]
 
-[node name="TrialRoom" type="Area2D" unique_id=181175386 node_paths=PackedStringArray("EnemiesNode")]
+[node name="TrialRoom" type="Area2D" unique_id=181175386 node_paths=PackedStringArray("EnemiesNode", "TrialSong")]
 collision_layer = 128
 collision_mask = 2
 script = ExtResource("1_6y4ix")
 ShooterScene = ExtResource("2_xtghk")
 FollowerScene = ExtResource("3_fkeb8")
 EnemiesNode = NodePath("Enemies")
+TrialSong = NodePath("TrialSong")
 
 [node name="Enemies" type="Node2D" parent="." unique_id=1455587792]
+
+[node name="TrialSong" type="AudioStreamPlayer" parent="." unique_id=378829586]
+stream = ExtResource("4_fkeb8")
+volume_db = -5.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

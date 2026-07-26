@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://bypl7puj7enri" path="res://Assets/Sprites/Character/detonator_walking-Sheet.png" id="3_s33c5"]
 [ext_resource type="PackedScene" uid="uid://bxaumg21qls1r" path="res://Scenes/Character/dash_particles.tscn" id="4_l7cuy"]
 [ext_resource type="Texture2D" uid="uid://bkw03cewvbhs" path="res://Assets/Sprites/Character/detonator_dead.png" id="7_a1apd"]
+[ext_resource type="AudioStream" uid="uid://dvc1cat0qajxq" path="res://Assets/SoundEffects/dash.wav" id="11_8kteo"]
+[ext_resource type="AudioStream" uid="uid://c3yk8sf8d7kwj" path="res://Assets/SoundEffects/deu erro eita.wav" id="12_eojev"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wiak4"]
 resource_local_to_scene = true
@@ -201,7 +203,7 @@ _data = {
 &"hit": SubResource("Animation_l7cuy")
 }
 
-[node name="Detonator" type="CharacterBody2D" unique_id=1179604457 node_paths=PackedStringArray("CanTakeDamageTimer", "sprite2D", "animation")]
+[node name="Detonator" type="CharacterBody2D" unique_id=1179604457 node_paths=PackedStringArray("CanTakeDamageTimer", "sprite2D", "animation", "SfxDash", "SfxDie")]
 collision_layer = 2
 collision_mask = 5
 motion_mode = 1
@@ -212,6 +214,8 @@ animation = NodePath("AnimationPlayer")
 HitParticlesScene = ExtResource("2_ainrq")
 DieParticlesScene = ExtResource("3_l7cuy")
 DashParticlesScene = ExtResource("4_l7cuy")
+SfxDash = NodePath("DashSfx")
+SfxDie = NodePath("DieSfx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1550908705]
 material = SubResource("ShaderMaterial_wiak4")
@@ -226,9 +230,7 @@ shape = SubResource("RectangleShape2D_svch3")
 [node name="Sword" parent="." unique_id=680981106 instance=ExtResource("3_iqn6a")]
 
 [node name="CanTakeDamageTimer" type="Timer" parent="." unique_id=1191956350]
-
 wait_time = 1.1
-
 one_shot = true
 
 [node name="DetonatorHitBox" type="Area2D" parent="." unique_id=714123309]
@@ -241,8 +243,15 @@ shape = SubResource("RectangleShape2D_ev4kj")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1652724884]
 libraries/ = SubResource("AnimationLibrary_a1apd")
 
-[connection signal="timeout" from="CanTakeDamageTimer" to="." method="_on_can_take_damage_timer_timeout"]
+[node name="DashSfx" type="AudioStreamPlayer" parent="." unique_id=2101752278]
+stream = ExtResource("11_8kteo")
+volume_db = -5.0
+pitch_scale = 8.0
 
+[node name="DieSfx" type="AudioStreamPlayer" parent="." unique_id=2139995534]
+stream = ExtResource("12_eojev")
+volume_db = 12.0
+
+[connection signal="timeout" from="CanTakeDamageTimer" to="." method="_on_can_take_damage_timer_timeout"]
 [connection signal="area_entered" from="DetonatorHitBox" to="." method="OnHitBoxEntered"]
 [connection signal="area_exited" from="DetonatorHitBox" to="." method="OnHitBoxExited"]
-

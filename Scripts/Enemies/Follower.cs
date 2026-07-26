@@ -76,6 +76,7 @@ public partial class Follower : CharacterBody2D
 			gameManager.ShakeCamera(0.1f, 0.2f);
 			EmmitHitParticles();
 			animation.Play("hit");
+			AudioManager.Instance.PlaySfxHit();
 			vida--;
 
 			if (vida <= 0)
@@ -109,6 +110,7 @@ public partial class Follower : CharacterBody2D
 	{
 		EmitSignal(SignalName.FollowerDeath);
 		EmmitDieParticles();
+		AudioManager.Instance.PlaySfxExplosion();
 		QueueFree();
 	}
 

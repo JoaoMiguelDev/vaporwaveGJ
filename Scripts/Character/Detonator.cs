@@ -12,6 +12,8 @@ public partial class Detonator : CharacterBody2D
 	[Export] private PackedScene HitParticlesScene;
 	[Export] private PackedScene DieParticlesScene;
 	[Export] private PackedScene DashParticlesScene;
+	[Export] private AudioStreamPlayer SfxDash;
+	[Export] private AudioStreamPlayer SfxDie;
 	public const float Speed = 150.0f;
 	public const float DashSpeed = 400f;
 	public const float DashTime = 0.2f;
@@ -82,6 +84,7 @@ public partial class Detonator : CharacterBody2D
 			{
 				GD.Print("Tô dando dash");
 				EmmitDashParticles();
+				SfxDash.Play();
 				CanDash = false;
 				DashTimer = DashTime;
 				DashReloadTimer = DashReloadTime;
@@ -151,6 +154,7 @@ public partial class Detonator : CharacterBody2D
 		IsDead = true;
 		EmmitDieParticles();
 		PlayAnimation(AnimationState.Die);
+		SfxDie.Play();
 		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 		GetNode<Node2D>("Sword").QueueFree();
 	}
@@ -166,6 +170,7 @@ public partial class Detonator : CharacterBody2D
 		animation.Play("hit");
 		EmmitHitParticles();
 		gameManager.ShakeCamera(0.5f, 0.2f);
+		AudioManager.Instance.PlaySfxHit();
 		CanTakeDamageTimer.Start();
 		Health -= amount;
 		

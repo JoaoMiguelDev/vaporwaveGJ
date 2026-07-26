@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://cf7wlxhy0hvp6" path="res://Scenes/MainMenu/MainMenu.cs" id="1_c7oo3"]
 [ext_resource type="Texture2D" uid="uid://dlwash5c5n258" path="res://Assets/Sprites/Ui/tela_inicio-Sheet.png" id="2_c7oo3"]
 [ext_resource type="AudioStream" uid="uid://bcuxm3844hcdc" path="res://Assets/Soundtracks/A - menu.ogg" id="3_sg7ab"]
+[ext_resource type="FontFile" uid="uid://doav3g1chicq" path="res://Assets/Fonts/QuinqueFive.ttf" id="3_ua038"]
+[ext_resource type="PackedScene" uid="uid://vxpwkjo58a0i" path="res://Scenes/Ui/crt.tscn" id="4_kpx3y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c7oo3"]
 atlas = ExtResource("2_c7oo3")
@@ -30,12 +32,6 @@ animations = [{
 "name": &"Normal",
 "speed": 5.0
 }]
-
-[sub_resource type="SystemFont" id="SystemFont_c7oo3"]
-font_names = PackedStringArray("Pixeled")
-
-[sub_resource type="SystemFont" id="SystemFont_ev4kj"]
-font_names = PackedStringArray("Pixeled")
 
 [node name="Main_Menu" type="Control" unique_id=1614583327 node_paths=PackedStringArray("start", "art", "music")]
 layout_mode = 3
@@ -80,7 +76,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.9647059, 0.99607843, 0.8509804, 1)
 theme_override_colors/font_outline_color = Color(0.88235295, 0.61960787, 0.8392157, 1)
 theme_override_constants/outline_size = 16
-theme_override_fonts/font = SubResource("SystemFont_c7oo3")
+theme_override_fonts/font = ExtResource("3_ua038")
 theme_override_font_sizes/font_size = 30
 text = "DetDefender.exe"
 horizontal_alignment = 1
@@ -115,8 +111,11 @@ visibility_layer = 0
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 theme_override_constants/outline_size = 5
-theme_override_fonts/font = SubResource("SystemFont_ev4kj")
 theme_override_font_sizes/font_size = 16
 
 [node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="." unique_id=1529991550]
 stream = ExtResource("3_sg7ab")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1072628703]
+
+[node name="Crt" parent="CanvasLayer" unique_id=766459670 instance=ExtResource("4_kpx3y")]

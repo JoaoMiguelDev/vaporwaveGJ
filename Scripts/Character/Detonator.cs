@@ -20,9 +20,10 @@ public partial class Detonator : CharacterBody2D
 	private Vector2 DashDir = Vector2.Zero;
 	private const float DashReloadTime = 2f;
 	private float DashReloadTimer = 0; 
+	private bool HitFlag;
 
 	//Animation shenanigans
-	
+
 	private enum AnimationState { Idle, Walk, Dash, Die }
 	private AnimationState CurrentAnimationState = AnimationState.Idle;
 
@@ -49,6 +50,11 @@ public partial class Detonator : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if(HitFlag){
+			TakeDamage(1);
+		}
+		
+		
 		if(IsDead)
 			return;
 
@@ -173,37 +179,47 @@ public partial class Detonator : CharacterBody2D
 	{
 		if(area.IsInGroup("Enemies"))
 		{
-			TakeDamage(1);
+			HitFlag = true;
 		}	
+	
 	}
+	
+	private void OnHitBoxExited(Area2D area){
+		if(area.IsInGroup("Enemies"))
+		{
+			HitFlag = false;
+		}
+	}
+
 
 	private void EmmitHitParticles()
 	{
 		var hitParticles = HitParticlesScene.Instantiate<GpuParticles2D>();
-	    GetParent().AddChild(hitParticles);
-	    hitParticles.GlobalPosition = GlobalPosition;
-	    hitParticles.Emitting = true;
+		GetParent().AddChild(hitParticles);
+		hitParticles.GlobalPosition = GlobalPosition;
+		hitParticles.Emitting = true;
 	   
-	    hitParticles.Finished += hitParticles.QueueFree;  
+		hitParticles.Finished += hitParticles.QueueFree;  
 	}
 
 	private void EmmitDieParticles()
 	{
 		var dieParticles = DieParticlesScene.Instantiate<GpuParticles2D>();
-	    GetParent().AddChild(dieParticles);
-	    dieParticles.GlobalPosition = GlobalPosition;
-	    dieParticles.Emitting = true;
+		GetParent().AddChild(dieParticles);
+		dieParticles.GlobalPosition = GlobalPosition;
+		dieParticles.Emitting = true;
 	   
-	    dieParticles.Finished += dieParticles.QueueFree;  
+		dieParticles.Finished += dieParticles.QueueFree;  
 	}
 
 	private void EmmitDashParticles()
 	{
 		var dashParticles = DashParticlesScene.Instantiate<GpuParticles2D>();
-	    GetParent().AddChild(dashParticles);
-	    dashParticles.GlobalPosition = GlobalPosition;
-	    dashParticles.Emitting = true;
+		GetParent().AddChild(dashParticles);
+		dashParticles.GlobalPosition = GlobalPosition;
+		dashParticles.Emitting = true;
 	   
-	    dashParticles.Finished += dashParticles.QueueFree;  
+		dashParticles.Finished += dashParticles.QueueFree;  
 	}
+
 }

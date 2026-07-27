@@ -9,109 +9,109 @@ public partial class TrialRoom : Area2D
 	[Export] private PackedScene FollowerScene;
 	[Export] private Node2D EnemiesNode;
 	[Export] private AudioStreamPlayer TrialSong;
-    private const int TotalWaves = 3;
-    private int CurrentWave = 0;
-    private int EnemyQuantity;
-    private bool Completed = false;
+	private const int TotalWaves = 3;
+	private int CurrentWave = 0;
+	private int EnemyQuantity;
+	private bool Completed = false;
 
-    public override void _Ready()
-    {
-       
-    }
+	public override void _Ready()
+	{
+	   
+	}
 
-    private void StartTrial()
-    {
-        if (Completed)
-            return;
+	private void StartTrial()
+	{
+		if (Completed)
+			return;
 
-        CurrentWave = 0;
-        EnemyQuantity = 0;
-        Completed = false;
+		CurrentWave = 0;
+		EnemyQuantity = 0;
+		Completed = false;
 
-        foreach (Door door in Doors)
-        {
-            door.Close();
-        }
+		foreach (Door door in Doors)
+		{
+			door.Close();
+		}
 
-        TrialSong.Play();
-        StartNextWave();
-    }
+		TrialSong.Play();
+		StartNextWave();
+	}
 
-    private void StartNextWave()
-    {
-        if (Completed)
-            return;
+	private void StartNextWave()
+	{
+		if (Completed)
+			return;
 
-        CurrentWave++;
+		CurrentWave++;
 
-        if (CurrentWave > TotalWaves)
-        {
-            StopTrial();
-            return;
-        }
+		if (CurrentWave > TotalWaves)
+		{
+			StopTrial();
+			return;
+		}
 
-        EnemyQuantity = 0;
+		EnemyQuantity = 0;
 
-        for (int i = 0; i < SpawnPoints.Count; i++)
-        {
-            Marker2D spawnPoint = SpawnPoints[i];
+		for (int i = 0; i < SpawnPoints.Count; i++)
+		{
+			Marker2D spawnPoint = SpawnPoints[i];
 
-            PackedScene enemyScene = Random.Shared.Next(0, 2) == 0 ? ShooterScene : FollowerScene;
-            Node2D enemy = enemyScene.Instantiate<Node2D>();
+			PackedScene enemyScene = Random.Shared.Next(0, 2) == 0 ? ShooterScene : FollowerScene;
+			Node2D enemy = enemyScene.Instantiate<Node2D>();
 
-            if (enemy is Shooter shooter)
-            {
-                shooter.ShooterDeath += OnEnemyKilled;
-            }
-            if (enemy is Follower follower)
-            {
-                follower.FollowerDeath += OnEnemyKilled;
-            }
+			if (enemy is Shooter shooter)
+			{
+				shooter.ShooterDeath += OnEnemyKilled;
+			}
+			if (enemy is Follower follower)
+			{
+				follower.FollowerDeath += OnEnemyKilled;
+			}
 
-            EnemiesNode.AddChild(enemy);
-            enemy.GlobalPosition = spawnPoint.GlobalPosition;
-            EnemyQuantity++;
-        }
-    }
+			EnemiesNode.AddChild(enemy);
+			enemy.GlobalPosition = spawnPoint.GlobalPosition;
+			EnemyQuantity++;
+		}
+	}
 
-    private void StopTrial()
-    {
-        foreach (Door door in Doors)
-        {
-            door.Open();
-        }
+	private void StopTrial()
+	{
+		foreach (Door door in Doors)
+		{
+			door.Open();
+		}
 
-        TrialSong.Stop();
-        Completed = true;
-    }
+		TrialSong.Stop();
+		Completed = true;
+	}
 
-    private void VerifyEnemiesQuantity()
-    {
-        if (EnemyQuantity == 0)
-        {
-            if (CurrentWave < TotalWaves)
-            {
-                StartNextWave();
-            }
-            else
-            {
-                StopTrial();
-            }
-        }
-    }
+	private void VerifyEnemiesQuantity()
+	{
+		if (EnemyQuantity == 0)
+		{
+			if (CurrentWave < TotalWaves)
+			{
+				StartNextWave();
+			}
+			else
+			{
+				StopTrial();
+			}
+		}
+	}
 
-    private void OnEnemyKilled()
-    {
-        EnemyQuantity--;
-        // VerifyEnemiesQuantity();
-        CallDeferred(nameof(VerifyEnemiesQuantity));
-    }
+	private void OnEnemyKilled()
+	{
+		EnemyQuantity--;
+		// VerifyEnemiesQuantity();
+		CallDeferred(nameof(VerifyEnemiesQuantity));
+	}
 
-    private void _on_body_entered(Node2D body)
-    {
-        if (body is Detonator)
-        {
-            CallDeferred(nameof(StartTrial));
-        }
-    }
+	private void _on_body_entered(Node2D body)
+	{
+		if (body is Detonator)
+		{
+			CallDeferred(nameof(StartTrial));
+		}
+	}
 }

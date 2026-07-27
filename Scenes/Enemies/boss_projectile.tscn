@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://jcq141cffniq"]
 
 [ext_resource type="Script" uid="uid://cg5hsjeojtgp3" path="res://Scripts/Enemies/BossProjectile.cs" id="1_avkvb"]
-[ext_resource type="Texture2D" uid="uid://da7vpmg4av7wx" path="res://Assets/Sprites/Enemies/tiro.png" id="1_wmsug"]
-[ext_resource type="PackedScene" uid="uid://dpiynu5as41qh" path="res://Scenes/Enemies/collision_particles.tscn" id="2_dlk37"]
+[ext_resource type="Texture2D" uid="uid://b6vj4erm8con5" path="res://Assets/Sprites/Enemies/tiro boss-1.png.png" id="2_avkvb"]
+[ext_resource type="PackedScene" uid="uid://c5hnma23m5egm" path="res://Scenes/Enemies/collision_particles_boss.tscn" id="2_dlk37"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4u13r"]
 radius = 7.071068
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gvqo2"]
-radius = 15.033297
+radius = 11.0
 
 [node name="BossProjectile" type="CharacterBody2D" unique_id=1039544456 groups=["Enemies"]]
 collision_layer = 0
@@ -17,7 +17,7 @@ script = ExtResource("1_avkvb")
 CollisionParticlesScene = ExtResource("2_dlk37")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1240385337]
-texture = ExtResource("1_wmsug")
+texture = ExtResource("2_avkvb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=742880775]
 visible = false
@@ -25,7 +25,6 @@ position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_4u13r")
 
 [node name="HitBox" type="Area2D" parent="." unique_id=1689308368 groups=["Enemies"]]
-visible = false
 collision_layer = 4
 collision_mask = 3
 

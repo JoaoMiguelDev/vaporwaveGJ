@@ -9,8 +9,8 @@
 [ext_resource type="AudioStream" uid="uid://db2s8lfdto78w" path="res://Assets/SoundEffects/BossShootSfx.wav" id="7_q4fd0"]
 [ext_resource type="AudioStream" uid="uid://jer50fiocqsi" path="res://Assets/SoundEffects/BossLaserSfx.wav" id="8_1xdxb"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4u13r"]
-size = Vector2(88, 128)
+[sub_resource type="CircleShape2D" id="CircleShape2D_1xdxb"]
+radius = 60.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wjlpm"]
 shader = ExtResource("2_y3kvw")
@@ -72,7 +72,7 @@ damping_min = 30.581001
 damping_max = 30.581001
 scale_min = 6.0
 scale_max = 6.0
-color = Color(0.9254902, 0.7764706, 0.33333334, 1)
+color = Color(0.7882353, 0.19215687, 0.09019608, 1)
 color_ramp = SubResource("GradientTexture1D_gvqo2")
 
 [sub_resource type="Gradient" id="Gradient_l72s5"]
@@ -96,7 +96,7 @@ scale_max = 10.0
 color_ramp = SubResource("GradientTexture1D_gjv8j")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4u13r"]
-radius = 64.0
+radius = 62.072536
 
 [sub_resource type="Animation" id="Animation_qgc24"]
 length = 0.001
@@ -159,8 +159,7 @@ StartupOmniShootTimer = NodePath("StartUpOmniShootTimer")
 OmnishootTimer = NodePath("OmnishootTimer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=379648468]
-position = Vector2(-4, 0)
-shape = SubResource("RectangleShape2D_4u13r")
+shape = SubResource("CircleShape2D_1xdxb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1911676949]
 material = SubResource("ShaderMaterial_wjlpm")
@@ -287,9 +286,9 @@ emitting = false
 amount = 40
 process_material = SubResource("ParticleProcessMaterial_gvqo2")
 
-[node name="BossHitbox" type="Area2D" parent="." unique_id=1057031278]
-collision_layer = 0
-collision_mask = 16
+[node name="BossHitbox" type="Area2D" parent="." unique_id=1057031278 groups=["Enemies"]]
+collision_layer = 4
+collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossHitbox" unique_id=1196404849]
 shape = SubResource("CircleShape2D_4u13r")

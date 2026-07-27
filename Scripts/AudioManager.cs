@@ -7,10 +7,10 @@ public partial class AudioManager : Node
 	[Export] private PackedScene SfxHitScene;	
 	[Export] private PackedScene SfxExplosionScene;
 
-    public override void _Ready()
-    {
-        Instance = this;
-    }
+	public override void _Ready()
+	{
+		Instance = this;
+	}
 
 	public void PlaySfxHit()
 	{

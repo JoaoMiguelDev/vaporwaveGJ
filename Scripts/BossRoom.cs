@@ -8,10 +8,10 @@ public partial class BossRoom : Area2D
 	[Export] private AudioStreamPlayer BossMusic;
 	private bool Completed = false;
 
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 		statueBoss.BossDied += StopBossFight;
-    }
+	}
 
 	private void StartBossFight()
 	{
